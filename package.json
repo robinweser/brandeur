@@ -1,0 +1,24 @@
+{
+  "name": "brandeur",
+  "private": true,
+  "scripts": {
+    "postinstall": "pnpm turbo run setup",
+    "build": "pnpm turbo run build",
+    "check": "pnpm format && pnpm test",
+    "format": "prettier --write \"packages/*/src/**/*.js\"",
+    "release": "pnpm prepare-release && lerna publish --force-publish",
+    "pre-release": "pnpm prepare-release && lerna publish --force-publish --dist-tag next --preid rc",
+    "prepare-release": "git pull --rebase && pnpm run check && pnpm build",
+    "test": "pnpm turbo run test",
+    "coverage": "pnpm turbo run coverage"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "lerna": "^4.0.0",
+    "prettier": "^3.2.2",
+    "rimraf": "^5.0.5",
+    "turbo": "^1.11.3"
+  }
+}

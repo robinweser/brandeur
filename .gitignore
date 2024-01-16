@@ -1,0 +1,38 @@
+# OS or Editor files
+._*
+.DS_Store
+Thumbs.db
+.idea
+
+# Files that might appear on external disks
+.Spotlight-V100
+.Trashes
+
+# Always-ignore extensions
+*~
+*.diff
+*.err
+*.log
+*.orig
+*.pyc
+*.rej
+*.sass-cache
+*.sw?
+.vscode
+*.vi
+*.tgz
+.editorconfig
+
+yarn-error.log
+*.js.map
+node_modules/
+npm-debug.log
+lib/
+es/
+umd/
+coverage/
+dist
+.next
+.turbo
+
+\.history/

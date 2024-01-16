@@ -1,0 +1,19 @@
+{
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["lib/**", "es/**"]
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "outputs": ["**/__snapshots__/**"]
+    },
+    "coverage": {
+      "dependsOn": ["^build"],
+      "outputs": ["**/__snapshots__/**", "coverage/**"]
+    },
+    "setup": {
+      "outputs": ["lib/**", "es/**"]
+    }
+  }
+}

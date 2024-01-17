@@ -20,7 +20,6 @@ export default function brandeur({
   plugins = [],
   fallbacks = [],
   theme = {},
-  config = {},
 }) {
   if (fallbacks.length > 0) {
     plugins.push(fallbackValuePlugin(fallbacks))

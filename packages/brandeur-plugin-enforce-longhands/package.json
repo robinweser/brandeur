@@ -1,7 +1,7 @@
 {
-  "name": "brandeur",
+  "name": "brandeur-plugin-enforce-longhands",
   "version": "1.0.0",
-  "description": "Convience toolbelt for css-hooks",
+  "description": "Brandeur plugin that enforces longhand properties over shorthand properties",
   "typings": "index.d.ts",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -29,16 +29,12 @@
   "repository": "https://github.com/robinweser/brandeur/",
   "keywords": [
     "brandeur",
+    "brandeur plugin",
+    "vendor prefixes",
+    "autoprefixer",
     "dynamic styling",
     "inline style",
-    "css-hooks",
-    "css",
-    "styling",
-    "functional styling",
-    "functional css",
-    "state-driven",
-    "state-driven styling",
-    "cssinjs"
+    "css-hooks"
   ],
   "author": "Robin Weser",
   "license": "MIT",
@@ -46,9 +42,6 @@
     "css-in-js-utils": "^3.1.0",
     "fast-loops": "^1.1.3",
     "isobject": "^4.0.0"
-  },
-  "peerDependencies": {
-    "@css-hooks/react": "^1.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.23.4",

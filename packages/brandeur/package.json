@@ -59,7 +59,9 @@
     "@babel/preset-env": "^7.23.8",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^29.7.0",
+    "brandeur-plugin-prefixer": "^1.0.0",
     "cross-env": "^7.0.3",
+    "cssbeautify": "^0.3.1",
     "jest": "^29.7.0",
     "rimraf": "^5.0.5"
   }

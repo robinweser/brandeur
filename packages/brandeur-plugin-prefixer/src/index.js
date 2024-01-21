@@ -64,3 +64,6 @@ export default function prefixerPlugin() {
     return style
   }
 }
+
+// TODO: add fallbacks
+export const fallbacks = []

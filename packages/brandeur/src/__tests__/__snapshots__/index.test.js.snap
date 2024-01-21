@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Using brandeur should work 1`] = `
+":root {
+    --position-sticky: ;
+}
+
+@supports (position:-webkit-sticky) {
+    :root {
+        --position-sticky: -webkit-sticky
+    }
+}
+
+@supports (position:sticky) {
+    :root {
+        --position-sticky: sticky
+    }
+}
+
+* {
+    --zh6im6-0: initial;
+    --zh6im6-1: ;
+}
+
+:hover {
+    --zh6im6-0: ;--zh6im6-1:initial;
+}"
+`;
+
+exports[`Using brandeur should work 2`] = `
+{
+  "WebkitAppearance": "var(--zh6im6-1, button) var(--zh6im6-0, none)",
+  "appearance": "var(--zh6im6-1, button) var(--zh6im6-0, none)",
+  "color": "red",
+  "position": "var(--zh6im6-1, absolute) var(--zh6im6-0, var(--position-sticky))",
+}
+`;

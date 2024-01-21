@@ -94,7 +94,6 @@ const getResponsiveMediaQueries = (values, props) => {
   return mediaQueryMap[values.length]
 }
 
-
 export const [hooks, css] = brandeur({
   hooks: {
     ...recommended({}),

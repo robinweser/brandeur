@@ -1,4 +1,8 @@
-import sortProperty from 'brandeur-plugin-sort-property'
+import sortProperty from 'brandeur-plugin-sort-properties'
+
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
 
 function getPropertyPriority({
   borderLonghand,

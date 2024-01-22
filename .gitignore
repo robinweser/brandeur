@@ -34,5 +34,6 @@ coverage/
 dist
 .next
 .turbo
+packages/brandeur/README.md 
 
 \.history/

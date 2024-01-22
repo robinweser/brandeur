@@ -21,19 +21,20 @@ Support Robin Weser's work on Brandeur and its ecosystem directly via [**GitHub 
 import { createHooks } from 'brandeur'
 import prefixer, { fallbacks } from 'brandeur-plugin-prefixer'
 
+const theme = {
+  colors: { primary: 'red' },
+}
+
 const [staticCSS, css] = createHooks({
-  // either custom hooks or @css-hooks/recommended
   hooks: {
-    ':hover': ':hover',
+    // either custom hooks or @css-hooks/recommended
   },
   plugins: [prefixer()],
   fallbacks: [
     ...fallbacks,
     { property: 'position', values: ['-webkit-sticky', 'sticky'] },
   ],
-  theme: {
-    colors: { primary: 'red' },
-  },
+  theme,
 })
 
 // red color, vendor prefixed and browser-compatible position: sticky

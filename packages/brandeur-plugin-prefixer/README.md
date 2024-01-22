@@ -1,3 +1,5 @@
-Unsupported: transition, filter, cross-fade, image-set, extrinsic & instrinsic sizing
+# brandeur-plugin-prefixer
 
-Fallbacks: min-content, max-content
+tbd.
+
+Unsupported: transition, filter, cross-fade, image-set

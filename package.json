@@ -8,7 +8,7 @@
     "format": "prettier --write \"packages/*/src/**/*.js\"",
     "release": "pnpm prepare-release && lerna publish --force-publish",
     "pre-release": "pnpm prepare-release && lerna publish --force-publish --dist-tag next --preid rc",
-    "prepare-release": "git pull --rebase && pnpm run check && pnpm build",
+    "prepare-release": "git pull --rebase && pnpm run check && pnpm build && cp README.md packages/brandeur/README.md",
     "test": "pnpm turbo run test",
     "coverage": "pnpm turbo run coverage"
   },

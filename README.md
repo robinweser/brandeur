@@ -15,9 +15,41 @@ Support Robin Weser's work on Brandeur and its ecosystem directly via [**GitHub 
 - Fallback Value Support
 - Fela Plugin Compatibility
 
+## The Gist
+
+```javascript
+import { createHooks } from 'brandeur'
+import prefixer, { fallbacks } from 'brandeur-plugin-prefixer'
+
+const [staticCSS, css] = createHooks({
+  // either custom hooks or @css-hooks/recommended
+  hooks: {
+    ':hover': ':hover',
+  },
+  plugins: [prefixer()],
+  fallbacks: [
+    ...fallbacks,
+    { property: 'position', values: ['-webkit-sticky', 'sticky'] },
+  ],
+  theme: {
+    colors: { primary: 'red' },
+  },
+})
+
+// red color, vendor prefixed and browser-compatible position: sticky
+const style = css(({ theme }) => ({
+  color: theme.colors.primary,
+  position: 'sticky',
+  appearance: 'none',
+}))
+```
+
 ## Documentation
 
-Currently the API only exists of 2 functions.
+Currently the API only exists of 2 functions:
+
+- [createHooks](#createhooks)
+- [fallbackValue](#fallbackValue)
 
 ### createHooks
 
@@ -62,32 +94,7 @@ It returns an array where the first item is a static CSS string and the second i
 
 #### Example
 
-```javascript
-import { createHooks } from 'brandeur'
-import prefixer, { fallbacks } from 'brandeur-plugin-prefixer'
-
-const [staticCSS, css] = createHooks({
-  // either custom hooks or @css-hooks/recommended
-  hooks: {
-    ':hover': ':hover',
-  },
-  plugins: [prefixer()],
-  fallbacks: [
-    ...fallbacks,
-    { property: 'position', values: ['-webkit-sticky', 'sticky'] },
-  ],
-  theme: {
-    colors: { primary: 'red' },
-  },
-})
-
-// style will be vendor prefixed, support sticky and use a red color
-const style = css(({ theme }) => ({
-  color: theme.colors.primary,
-  position: 'sticky',
-  appearance: 'none',
-}))
-```
+See [The Gist](#the-gist).
 
 ### fallbackValue
 
@@ -129,6 +136,7 @@ The following table shows all plugins available for Brandeur. It supports quite 
 
 ## Roadmap
 
+- TypeScript Support
 - RTL Conversion
 - Font & Keyframes Primitives
 - Theming Primitives

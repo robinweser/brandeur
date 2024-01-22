@@ -1,6 +1,6 @@
 {
   "name": "brandeur",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Convience toolbelt for css-hooks",
   "typings": "index.d.ts",
   "main": "lib/index.js",

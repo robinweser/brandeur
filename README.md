@@ -45,6 +45,10 @@ const style = css(({ theme }) => ({
 }))
 ```
 
+## Why
+
+tbd.
+
 ## Documentation
 
 Currently the API only exists of 2 functions:

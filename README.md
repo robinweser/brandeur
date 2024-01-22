@@ -49,9 +49,9 @@ const style = css(({ theme }) => ({
 
 tbd.
 
-## Documentation
+## API
 
-Currently the API only exists of 2 functions:
+Currently Brandeur only exposes two functions:
 
 - [createHooks](#createhooks)
 - [fallbackValue](#fallbackValue)

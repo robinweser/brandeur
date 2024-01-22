@@ -1,6 +1,6 @@
 # Brandeur
 
-Brandeur is a convenience layer and toolbelt on top of [css-hooks](https://css-hooks.com) for React.
+Brandeur is a convenience layer and tool belt on top of [css-hooks](https://css-hooks.com) for React.
 
 <a href="https://bundlephobia.com/result?p=brandeur@latest"><img alt="Bundlephobia" src="https://img.shields.io/bundlephobia/minzip/brandeur.svg"></a> <img alt="npm downloads" src="https://img.shields.io/npm/dm/brandeur.svg">
 

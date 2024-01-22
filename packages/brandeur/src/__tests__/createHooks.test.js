@@ -1,17 +1,21 @@
 import beautify from 'cssbeautify'
-import prefixer from 'brandeur-plugin-prefixer'
 
-import brandeur from '../index'
+import createHooks from '../createHooks'
 import fallbackValue from '../fallbackValue'
 
-describe('Using brandeur', () => {
-  it('should work', () => {
-    const [staticCSS, css] = brandeur({
+describe('Creating hooks', () => {
+  it('should support fallbacks', () => {
+    const [staticCSS, css] = createHooks({
       hooks: {
         ':hover': ':hover',
       },
-      plugins: [prefixer()],
-      fallbacks: [fallbackValue('position', ['-webkit-sticky', 'sticky'])],
+      fallbacks: [
+        fallbackValue('position', ['-webkit-sticky', 'sticky']),
+        fallbackValue(
+          ['width', 'height'],
+          ['-webkit-min-content', 'min-content']
+        ),
+      ],
     })
 
     expect(beautify(staticCSS)).toMatchSnapshot()
@@ -20,9 +24,11 @@ describe('Using brandeur', () => {
         color: 'red',
         appearance: 'none',
         position: 'sticky',
+        width: 'min-content',
         ':hover': {
           appearance: 'button',
           position: 'absolute',
+          width: 'auto',
         },
       })
     ).toMatchSnapshot()

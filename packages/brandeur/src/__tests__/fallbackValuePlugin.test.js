@@ -26,4 +26,21 @@ describe('Using the fallback value plugin', () => {
       },
     })
   })
+
+  it('should support multiple properties', () => {
+    const resolve = fallbackValuePlugin([
+      fallbackValue(
+        ['width', 'height'],
+        ['-webkit-min-content', 'min-content']
+      ),
+    ])
+
+    expect(
+      resolve({ width: 'min-content', height: 'min-content', color: 'red' })
+    ).toEqual({
+      width: 'var(--width-min-content)',
+      height: 'var(--height-min-content)',
+      color: 'red',
+    })
+  })
 })

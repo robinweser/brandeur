@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Using brandeur should support fallbacks 1`] = `
+":root {
+    --position-sticky:;
+    --width-min-content:;
+    --height-min-content:;
+}
+
+@supports (position:-webkit-sticky) {
+    :root {
+        --position-sticky: -webkit-sticky
+    }
+}
+
+@supports (position:sticky) {
+    :root {
+        --position-sticky: sticky
+    }
+}
+
+@supports (width:-webkit-min-content) {
+    :root {
+        --width-min-content: -webkit-min-content
+    }
+}
+
+@supports (height:-webkit-min-content) {
+    :root {
+        --height-min-content: -webkit-min-content
+    }
+}
+
+@supports (width:min-content) {
+    :root {
+        --width-min-content: min-content
+    }
+}
+
+@supports (height:min-content) {
+    :root {
+        --height-min-content: min-content
+    }
+}
+
+* {
+    --zh6im6-0: initial;
+    --zh6im6-1: ;
+}
+
+:hover {
+    --zh6im6-0: ;--zh6im6-1:initial;
+}"
+`;
+
+exports[`Using brandeur should support fallbacks 2`] = `
+{
+  "appearance": "var(--zh6im6-1, button) var(--zh6im6-0, none)",
+  "color": "red",
+  "position": "var(--zh6im6-1, absolute) var(--zh6im6-0, var(--position-sticky))",
+  "width": "var(--zh6im6-1, auto) var(--zh6im6-0, var(--width-min-content))",
+}
+`;

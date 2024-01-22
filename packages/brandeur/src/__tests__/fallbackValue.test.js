@@ -15,4 +15,14 @@ describe('Using the fallback utility', () => {
       match: 'sticky',
     })
   })
+
+  it('should accept multiple properties', () => {
+    expect(
+      fallbackValue(['width', 'height'], ['-webkit-min-content', 'min-content'])
+    ).toEqual({
+      property: ['width', 'height'],
+      values: ['-webkit-min-content', 'min-content'],
+      match: 'min-content',
+    })
+  })
 })

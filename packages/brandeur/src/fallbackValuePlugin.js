@@ -1,19 +1,23 @@
-import generateFallbackVariable from './generateFallbackVariable'
+import getFallbackVariable from './getFallbackVariable'
 
 export default function fallbackValuePlugin(fallbacks = []) {
+  const fallbackMap = fallbacks.reduce((map, { property, match }) => {
+    ;[].concat(property).forEach((prop) => {
+      map[prop] = match
+    })
+
+    return map
+  }, {})
+
   return function resolveFallbackValue(style) {
     for (let prop in style) {
       if (typeof style[prop] === 'object') {
         style[prop] = resolveFallbackValue(style[prop])
       } else {
-        // TODO: turn into map for perf
-        const fallback = fallbacks.find(
-          ({ property, match }) => property === prop && match === style[prop]
-        )
+        const fallback = fallbackMap[prop]
 
-        if (fallback) {
-          style[prop] =
-            'var(' + generateFallbackVariable(prop, fallback.match) + ')'
+        if (fallback && fallback === style[prop]) {
+          style[prop] = 'var(' + getFallbackVariable(prop, fallback) + ')'
         }
       }
     }

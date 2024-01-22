@@ -60,9 +60,6 @@ importers:
       babel-jest:
         specifier: ^29.7.0
         version: 29.7.0(@babel/core@7.23.7)
-      brandeur-plugin-prefixer:
-        specifier: ^1.0.0
-        version: link:../brandeur-plugin-prefixer
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
@@ -161,6 +158,9 @@ importers:
       babel-jest:
         specifier: ^29.7.0
         version: 29.7.0(@babel/core@7.23.7)
+      brandeur:
+        specifier: ^1.0.0
+        version: link:../brandeur
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3

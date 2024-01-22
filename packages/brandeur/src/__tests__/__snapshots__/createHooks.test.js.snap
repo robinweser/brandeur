@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Using brandeur should support fallbacks 1`] = `
+exports[`Creating hooks should support fallbacks 1`] = `
 ":root {
     --position-sticky:;
     --width-min-content:;
@@ -53,7 +53,7 @@ exports[`Using brandeur should support fallbacks 1`] = `
 }"
 `;
 
-exports[`Using brandeur should support fallbacks 2`] = `
+exports[`Creating hooks should support fallbacks 2`] = `
 {
   "appearance": "var(--zh6im6-1, button) var(--zh6im6-0, none)",
   "color": "red",

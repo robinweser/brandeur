@@ -44,7 +44,7 @@ const [staticCSS, css] = createHooks({
   theme,
 })
 
-// red color, vendor prefixed and browser-compatible position: sticky
+// fades in, red color, vendor prefixed and browser-compatible position: sticky
 const style = css(({ theme, keyframes }) => ({
   animationName: keyframes.fadeIn,
   color: theme.colors.primary,

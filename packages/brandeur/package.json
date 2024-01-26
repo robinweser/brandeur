@@ -1,7 +1,7 @@
 {
   "name": "brandeur",
   "version": "0.0.1",
-  "description": "Convience toolbelt for css-hooks",
+  "description": "Convenience layer and tool belt for css-hooks",
   "typings": "index.d.ts",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -57,6 +57,7 @@
     "@babel/plugin-transform-modules-commonjs": "^7.23.2",
     "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.23.8",
+    "@css-hooks/react": "^1.8.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^29.7.0",
     "cross-env": "^7.0.3",

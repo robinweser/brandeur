@@ -33,4 +33,27 @@ describe('Creating hooks', () => {
       })
     ).toMatchSnapshot()
   })
+
+  it('should support keyframes', () => {
+    const [staticCSS, css] = createHooks({
+      hooks: {
+        ':hover': ':hover',
+      },
+      keyframes: {
+        fadeIn: {
+          from: { opacity: 0 },
+          to: { opacity: 1 },
+        },
+      },
+    })
+
+    expect(beautify(staticCSS)).toMatchSnapshot()
+    expect(
+      css(({ keyframes }) => ({
+        animationName: keyframes.fadeIn,
+      }))
+    ).toEqual({
+      animationName: 'fadeIn',
+    })
+  })
 })

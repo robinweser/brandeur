@@ -191,7 +191,7 @@ importers:
         version: 7.23.8(@babel/core@7.23.7)
       '@css-hooks/react':
         specifier: ^1.8.0
-        version: link:../css-hooks-react
+        version: 1.8.1
       babel-core:
         specifier: 7.0.0-bridge.0
         version: 7.0.0-bridge.0(@babel/core@7.23.7)
@@ -1843,6 +1843,21 @@ packages:
     dependencies:
       exec-sh: 0.3.6
       minimist: 1.2.8
+    dev: true
+
+  /@css-hooks/core@1.8.1:
+    resolution: {integrity: sha512-IFyGx4Eg6K3H2w7ZCaClRO9BoCeJ1WDD61NyzPaGvIpIlmRA9PbL4j1U0Fiv2NZ66n87NFw/UHxFPu7InxODVw==}
+    dev: true
+
+  /@css-hooks/react@1.8.1:
+    resolution: {integrity: sha512-Zq7coHsBchIQkebRYNS0x8CS4qXsN1NCa9TwMoTIkA2urPHlI5unmstjltEKxxz/HEQoLGv2owVQT7d2FUbFoQ==}
+    peerDependencies:
+      '@types/react': '>=16 <19'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@css-hooks/core': 1.8.1
     dev: true
 
   /@discoveryjs/json-ext@0.5.7:

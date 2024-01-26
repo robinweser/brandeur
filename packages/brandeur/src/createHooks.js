@@ -1,4 +1,5 @@
 import { createHooks as baseCreateHooks } from '@css-hooks/react'
+import { cssifyObject } from 'css-in-js-utils'
 
 import fallbackValuePlugin from './fallbackValuePlugin'
 import getFallbackVariable from './getFallbackVariable'
@@ -7,9 +8,9 @@ function processStyle(style, plugins) {
   return plugins.reduce((processed, plugin) => plugin(processed), style)
 }
 
-function resolveStyle(style, theme) {
+function resolveStyle(style, theme, keyframes) {
   if (typeof style === 'function') {
-    return style({ theme })
+    return style({ theme, keyframes })
   }
 
   return style
@@ -46,13 +47,36 @@ function getFallbackCSS(fallbacks) {
       .join('')
   })
 
-  return `:root {${rootCSS}}` + supportsCSS.join('')
+  return (rootCSS ? `:root {${rootCSS}}` : '') + supportsCSS.join('')
+}
+
+function cssifyKeyframe(animationName, frames) {
+  const keyframe = cssifyKeyframeRule(frames)
+
+  return `@keyframes ${animationName}{${keyframe}}`
+}
+
+function cssifyKeyframeRule(frames) {
+  return Object.keys(frames).reduce(
+    (css, percentage) =>
+      `${css}${percentage}{${cssifyObject(frames[percentage])}}`,
+    ''
+  )
+}
+
+function getKeyframesCSS(keyframes) {
+  return Object.keys(keyframes)
+    .map((animationName) =>
+      cssifyKeyframe(animationName, keyframes[animationName])
+    )
+    .join('')
 }
 
 export default function createHooks({
   hooks,
   plugins = [],
   fallbacks = [],
+  keyframes = {},
   theme = {},
 }) {
   if (fallbacks.length > 0) {
@@ -61,10 +85,19 @@ export default function createHooks({
 
   const [baseCSS, fn] = baseCreateHooks(hooks)
   const fallbackCSS = getFallbackCSS(fallbacks)
-  const staticCSS = fallbackCSS + baseCSS
+  const keyframesCSS = getKeyframesCSS(keyframes)
+
+  const staticCSS = keyframesCSS + fallbackCSS + baseCSS
+
+  const keyframeNames = Object.keys(keyframes).reduce(
+    (keyframeNames, animationName) => ({ [animationName]: animationName }),
+    {}
+  )
 
   function css(style) {
-    return fn(processStyle(resolveStyle(style, theme), plugins, theme))
+    return fn(
+      processStyle(resolveStyle(style, theme, keyframeNames), plugins, theme)
+    )
   }
 
   return [staticCSS, css]

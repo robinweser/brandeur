@@ -61,3 +61,24 @@ exports[`Creating hooks should support fallbacks 2`] = `
   "width": "var(--zh6im6-1, auto) var(--zh6im6-0, var(--width-min-content))",
 }
 `;
+
+exports[`Creating hooks should support keyframes 1`] = `
+"@keyframes fadeIn {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+* {
+    --zh6im6-0: initial;
+    --zh6im6-1: ;
+}
+
+:hover {
+    --zh6im6-0: ;--zh6im6-1:initial;
+}"
+`;

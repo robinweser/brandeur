@@ -13,6 +13,7 @@ Support Robin Weser's work on Brandeur and its ecosystem directly via [**GitHub 
 - Same API
 - Vendor Prefixing
 - Fallback Value Support
+- Keyframes Support
 - Fela Plugin Compatibility
 
 ## The Gist
@@ -34,11 +35,18 @@ const [staticCSS, css] = createHooks({
     ...fallbacks,
     { property: 'position', values: ['-webkit-sticky', 'sticky'] },
   ],
+  keyframes: {
+    fadeIn: {
+      from: { opacity: 0 },
+      to: { opacity: 1 },
+    },
+  },
   theme,
 })
 
-// red color, vendor prefixed and browser-compatible position: sticky
-const style = css(({ theme }) => ({
+// fades in, red color, vendor prefixed and browser-compatible position: sticky
+const style = css(({ theme, keyframes }) => ({
+  animationName: keyframes.fadeIn,
   color: theme.colors.primary,
   position: 'sticky',
   appearance: 'none',
@@ -69,6 +77,7 @@ It accepts the following arguments as an object.
 | --------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | plugins   | _Array\<Plugin>_   | List of plugins that are used to process each style before transforming into a flat hooks style. See [Plugins](#plugins) for a list of all available plugins. |
 | fallbacks | _Array\<Fallback>_ | List of fallbacks that are added and automatically replace within style objects.                                                                              |
+| keyframes | _Object_           | A map of animationName-keyframe pairs.                                                                                                                        |
 | theme     | _Object_           | A theme object that can be accessed from within style functions.                                                                                              |
 
 ##### Plugin
@@ -162,7 +171,6 @@ The following table shows all plugins available for Brandeur. It supports quite 
 
 - TypeScript Support
 - RTL Conversion
-- Font & Keyframes Primitives
 - Theming Primitives
 - Configuration
 - Framework-Agnostic API

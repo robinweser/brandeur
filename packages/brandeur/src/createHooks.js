@@ -80,6 +80,7 @@ export default function createHooks({
       ) +
       '}'
 
+    // use-deep-merge
     return { ...merged, ...theme }
   }, {})
 

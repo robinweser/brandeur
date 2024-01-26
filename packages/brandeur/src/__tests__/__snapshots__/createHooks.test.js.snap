@@ -61,3 +61,25 @@ exports[`Creating hooks should support fallbacks 2`] = `
   "width": "var(--zh6im6-1, auto) var(--zh6im6-0, var(--width-min-content))",
 }
 `;
+
+exports[`Creating hooks should support themes 1`] = `
+":root {
+}
+
+.light {
+    --colors-primary: red;
+}
+
+.dark {
+    --colors-primary: blue;
+}
+
+* {
+    --zh6im6-0: initial;
+    --zh6im6-1: ;
+}
+
+:hover {
+    --zh6im6-0: ;--zh6im6-1:initial;
+}"
+`;

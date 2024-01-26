@@ -33,4 +33,33 @@ describe('Creating hooks', () => {
       })
     ).toMatchSnapshot()
   })
+
+  it('should support themes', () => {
+    const [staticCSS, css] = createHooks({
+      hooks: {
+        ':hover': ':hover',
+      },
+      themes: {
+        light: {
+          colors: {
+            primary: 'red',
+          },
+        },
+        dark: {
+          colors: {
+            primary: 'blue',
+          },
+        },
+      },
+    })
+
+    expect(beautify(staticCSS)).toMatchSnapshot()
+    expect(
+      css(({ theme }) => ({
+        color: theme.colors.primary,
+      }))
+    ).toEqual({
+      color: 'var(--colors-primary)',
+    })
+  })
 })

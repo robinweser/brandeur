@@ -2,6 +2,7 @@ import { createHooks as baseCreateHooks } from '@css-hooks/react'
 
 import fallbackValuePlugin from './fallbackValuePlugin'
 import getFallbackVariable from './getFallbackVariable'
+import createTheme from './createTheme'
 
 function processStyle(style, plugins) {
   return plugins.reduce((processed, plugin) => plugin(processed), style)
@@ -53,15 +54,36 @@ export default function createHooks({
   hooks,
   plugins = [],
   fallbacks = [],
-  theme = {},
+  themes = {},
 }) {
   if (fallbacks.length > 0) {
     plugins.push(fallbackValuePlugin(fallbacks))
   }
 
-  const [baseCSS, fn] = baseCreateHooks(hooks)
+  const [baseCSS, fn] = baseCreateHooks(hooks, {
+    sort: false,
+  })
   const fallbackCSS = getFallbackCSS(fallbacks)
-  const staticCSS = fallbackCSS + baseCSS
+
+  let themeCSS = ''
+
+  const theme = Object.keys(themes).reduce((merged, name) => {
+    const [theme, variables] = createTheme(themes[name])
+
+    themeCSS +=
+      '.' +
+      name +
+      '{' +
+      Object.keys(variables).reduce(
+        (css, property) => css + property + ':' + variables[property] + ';',
+        ''
+      ) +
+      '}'
+
+    return { ...merged, ...theme }
+  }, {})
+
+  const staticCSS = fallbackCSS + themeCSS + baseCSS
 
   function css(style) {
     return fn(processStyle(resolveStyle(style, theme), plugins, theme))

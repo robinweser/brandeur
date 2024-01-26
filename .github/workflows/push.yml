@@ -15,11 +15,11 @@ on:
 jobs:
   test:
     name: Ubuntu on Node ${{ matrix.node }}
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [ubuntu-18.04]
-        node: [16]
+        os: [ubuntu-latest]
+        node: [18]
     steps:
       - uses: actions/checkout@v2
 

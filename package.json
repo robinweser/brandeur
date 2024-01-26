@@ -1,5 +1,5 @@
 {
-  "name": "brandeur",
+  "name": "brandeur-monorepo",
   "private": true,
   "scripts": {
     "postinstall": "pnpm turbo run setup",
@@ -13,7 +13,8 @@
     "coverage": "pnpm turbo run coverage"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "benchmarks"
   ],
   "devDependencies": {
     "lerna": "^4.0.0",

@@ -1,5 +1,4 @@
 import isObject from 'isobject'
-import { fallbackValue } from 'brandeur'
 
 function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1)
@@ -67,12 +66,26 @@ export default function prefixerPlugin() {
 }
 
 export const fallbacks = [
-  fallbackValue(
-    ['width', 'minWidth', 'maxWidth', 'height', 'minHeight', 'maxHeight'],
-    ['-webkit-min-content', 'min-content']
-  ),
-  fallbackValue(
-    ['width', 'minWidth', 'maxWidth', 'height', 'minHeight', 'maxHeight'],
-    ['-webkit-max-content', 'max-content']
-  ),
+  {
+    property: [
+      'width',
+      'minWidth',
+      'maxWidth',
+      'height',
+      'minHeight',
+      'maxHeight',
+    ],
+    values: ['-webkit-min-content', 'min-content'],
+  },
+  {
+    property: [
+      'width',
+      'minWidth',
+      'maxWidth',
+      'height',
+      'minHeight',
+      'maxHeight',
+    ],
+    values: ['-webkit-max-content', 'max-content'],
+  },
 ]

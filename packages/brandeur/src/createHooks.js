@@ -65,11 +65,11 @@ function cssifyKeyframeRule(frames) {
 }
 
 function getKeyframesCSS(keyframes) {
-  return Object.keys(keyframes)
-    .map((animationName) =>
-      cssifyKeyframe(animationName, keyframes[animationName])
-    )
-    .join('')
+  return Object.keys(keyframes).reduce(
+    (css, animationName) =>
+      css + cssifyKeyframe(animationName, keyframes[animationName]),
+    ''
+  )
 }
 
 export default function createHooks({

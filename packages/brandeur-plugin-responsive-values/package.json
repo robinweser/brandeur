@@ -1,7 +1,7 @@
 {
-  "name": "brandeur-plugin-sort-properties",
+  "name": "brandeur-plugin-responsive-values",
   "version": "0.0.1",
-  "description": "Brandeur plugin that sorts properties according a priority map",
+  "description": "Brandeur plugin to resolve responsive array values",
   "typings": "index.d.ts",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -29,14 +29,18 @@
   "keywords": [
     "brandeur",
     "brandeur plugin",
-    "vendor prefixes",
-    "autoprefixer",
     "dynamic styling",
     "inline style",
-    "css-hooks"
+    "css-hooks",
+    "responsive styling",
+    "responsive values"
   ],
   "author": "Robin Weser",
   "license": "MIT",
+  "dependencies": {
+    "css-in-js-utils": "^3.1.0",
+    "isobject": "^4.0.0"
+  },
   "devDependencies": {
     "@babel/cli": "^7.23.4",
     "@babel/core": "^7.23.7",
@@ -46,6 +50,7 @@
     "@babel/preset-env": "^7.23.8",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^29.7.0",
+    "brandeur-plugin-sort-properties": "^0.0.1",
     "cross-env": "^7.0.3",
     "jest": "^29.7.0",
     "rimraf": "^5.0.5"

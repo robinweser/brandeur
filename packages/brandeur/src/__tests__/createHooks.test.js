@@ -56,4 +56,17 @@ describe('Creating hooks', () => {
       animationName: 'fadeIn',
     })
   })
+
+  it('should support multiple styles', () => {
+    const [_, css] = createHooks({
+      hooks: {
+        ':hover': ':hover',
+      },
+    })
+
+    expect(css({ color: 'red' }, { fontSize: 16 })).toEqual({
+      color: 'red',
+      fontSize: 16,
+    })
+  })
 })

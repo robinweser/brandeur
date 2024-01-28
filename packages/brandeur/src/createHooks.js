@@ -94,9 +94,11 @@ export default function createHooks({
     {}
   )
 
-  function css(style) {
+  function css(...styles) {
     return fn(
-      processStyle(resolveStyle(style, theme, keyframeNames), plugins, theme)
+      ...styles.map((style) =>
+        processStyle(resolveStyle(style, theme, keyframeNames), plugins)
+      )
     )
   }
 

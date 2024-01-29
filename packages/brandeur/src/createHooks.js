@@ -96,9 +96,11 @@ export default function createHooks({
 
   function css(...styles) {
     return fn(
-      ...styles.map((style) =>
-        processStyle(resolveStyle(style, theme, keyframeNames), plugins)
-      )
+      ...styles
+        .flat(Infinity)
+        .map((style) =>
+          processStyle(resolveStyle(style, theme, keyframeNames), plugins)
+        )
     )
   }
 

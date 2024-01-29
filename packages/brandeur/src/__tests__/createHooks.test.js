@@ -69,4 +69,25 @@ describe('Creating hooks', () => {
       fontSize: 16,
     })
   })
+
+  it('should support nested arrays of styles', () => {
+    const [_, css] = createHooks({
+      hooks: {
+        ':hover': ':hover',
+      },
+    })
+
+    expect(
+      css([
+        { color: 'red' },
+        { fontSize: 16 },
+        [{ color: 'blue', backgroundColor: 'red' }, { lineHeight: 1 }],
+      ])
+    ).toEqual({
+      color: 'blue',
+      backgroundColor: 'red',
+      fontSize: 16,
+      lineHeight: 1,
+    })
+  })
 })

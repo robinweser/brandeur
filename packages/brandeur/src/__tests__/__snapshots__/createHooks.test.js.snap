@@ -4,7 +4,7 @@ exports[`Creating hooks should support fallbacks 1`] = `
 ":root {
     --position-sticky:;
     --width-min-content:;
-    --height-min-content:;
+    --minWidth-min-content:;
 }
 
 @supports (position:-webkit-sticky) {
@@ -25,9 +25,9 @@ exports[`Creating hooks should support fallbacks 1`] = `
     }
 }
 
-@supports (height:-webkit-min-content) {
+@supports (min-width:-webkit-min-content) {
     :root {
-        --height-min-content: -webkit-min-content
+        --minWidth-min-content: -webkit-min-content
     }
 }
 
@@ -37,9 +37,9 @@ exports[`Creating hooks should support fallbacks 1`] = `
     }
 }
 
-@supports (height:min-content) {
+@supports (min-width:min-content) {
     :root {
-        --height-min-content: min-content
+        --minWidth-min-content: min-content
     }
 }
 
@@ -57,6 +57,7 @@ exports[`Creating hooks should support fallbacks 2`] = `
 {
   "appearance": "var(--zh6im6-1, button) var(--zh6im6-0, none)",
   "color": "red",
+  "minWidth": "var(--minWidth-min-content)",
   "position": "var(--zh6im6-1, absolute) var(--zh6im6-0, var(--position-sticky))",
   "width": "var(--zh6im6-1, auto) var(--zh6im6-0, var(--width-min-content))",
 }

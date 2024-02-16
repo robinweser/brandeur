@@ -12,7 +12,7 @@ describe('Creating hooks', () => {
       fallbacks: [
         fallbackValue('position', ['-webkit-sticky', 'sticky']),
         fallbackValue(
-          ['width', 'height'],
+          ['width', 'minWidth'],
           ['-webkit-min-content', 'min-content']
         ),
       ],
@@ -25,6 +25,7 @@ describe('Creating hooks', () => {
         appearance: 'none',
         position: 'sticky',
         width: 'min-content',
+        minWidth: 'min-content',
         ':hover': {
           appearance: 'button',
           position: 'absolute',

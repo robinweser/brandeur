@@ -78,12 +78,16 @@ describe('Creating hooks', () => {
     })
 
     expect(
-      css([
-        { color: 'red' },
-        { fontSize: 16 },
-        [{ color: 'blue', backgroundColor: 'red' }, { lineHeight: 1 }],
-      ])
+      css(
+        [
+          { color: 'red', padding: 5 },
+          { fontSize: 16 },
+          [{ color: 'blue', backgroundColor: 'red' }, { lineHeight: 1 }],
+        ],
+        { padding: 10 }
+      )
     ).toEqual({
+      padding: 10,
       color: 'blue',
       backgroundColor: 'red',
       fontSize: 16,

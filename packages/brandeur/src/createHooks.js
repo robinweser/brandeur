@@ -1,5 +1,5 @@
 import { createHooks as baseCreateHooks } from '@css-hooks/react'
-import { cssifyObject } from 'css-in-js-utils'
+import { cssifyObject, hyphenateProperty } from 'css-in-js-utils'
 
 import fallbackValuePlugin from './fallbackValuePlugin'
 import getFallbackVariable from './getFallbackVariable'
@@ -17,7 +17,7 @@ function resolveStyle(style, theme, keyframes) {
 }
 
 function getFallbackCSS(fallbacks) {
-  const rootCSS = fallbacks.reduce((css, { property, match }) => {
+  const rootCSS = fallbacks.reduce((css, { property, values = [], match }) => {
     // use the last value as a default matcher if no match is provided
     const actualMatch = match || values[values.length - 1]
 
@@ -40,7 +40,7 @@ function getFallbackCSS(fallbacks) {
           .concat(property)
           .map(
             (prop) =>
-              `@supports (${prop}:${value}){:root{${getFallbackVariable(prop, actualMatch)}:${value}}}`
+              `@supports (${hyphenateProperty(prop)}:${value}){:root{${getFallbackVariable(prop, actualMatch)}:${value}}}`
           )
           .join('')
       )

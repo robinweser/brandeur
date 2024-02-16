@@ -5,7 +5,6 @@ describe('Using the fallback utility', () => {
     expect(fallbackValue('position', ['-webkit-sticky', 'sticky'])).toEqual({
       property: 'position',
       values: ['-webkit-sticky', 'sticky'],
-      match: 'sticky',
     })
     expect(
       fallbackValue('position', ['-webkit-sticky', 'sticky'], 'sticky')
@@ -22,7 +21,6 @@ describe('Using the fallback utility', () => {
     ).toEqual({
       property: ['width', 'height'],
       values: ['-webkit-min-content', 'min-content'],
-      match: 'min-content',
     })
   })
 })

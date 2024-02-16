@@ -1,9 +1,12 @@
 import getFallbackVariable from './getFallbackVariable'
 
 export default function fallbackValuePlugin(fallbacks = []) {
-  const fallbackMap = fallbacks.reduce((map, { property, match }) => {
+  const fallbackMap = fallbacks.reduce((map, { property, values, match }) => {
+    // use the last value as a default matcher if no match is provided
+    const actualMatch = match || values[values.length - 1]
+
     ;[].concat(property).forEach((prop) => {
-      map[prop] = match
+      map[prop] = actualMatch
     })
 
     return map

@@ -1,0 +1,47 @@
+{
+  "name": "@css-hooks/core",
+  "description": "CSS Hooks core library",
+  "version": "0.0.5",
+  "author": "Nick Saunders",
+  "devDependencies": {
+    "@tsconfig/strictest": "^2.0.1",
+    "@types/css-tree": "^2.3.2",
+    "@typescript-eslint/eslint-plugin": "^6.3.0",
+    "@typescript-eslint/parser": "^6.3.0",
+    "css-tree": "^2.3.1",
+    "eslint": "^8.47.0",
+    "rimraf": "^5.0.1",
+    "tsc-watch": "^6.0.4",
+    "typescript": "^5.1.6"
+  },
+  "files": [
+    "cjs",
+    "esm",
+    "types"
+  ],
+  "license": "MIT",
+  "main": "cjs",
+  "module": "esm",
+  "type": "module",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/css-hooks/css-hooks.git",
+    "directory": "packages/core"
+  },
+  "scripts": {
+    "clean": "rimraf cjs esm out types",
+    "lint": "eslint src .*.*js *.*js",
+    "prepublishOnly": "tsc -p tsconfig.dist.json --outDir esm --module es6 && tsc -p tsconfig.dist.json --outDir cjs --module commonjs && tsc -p tsconfig.dist.json --outDir types --declaration --emitDeclarationOnly",
+    "test": "echo 0 ",
+    "test.watch": "tsc-watch --onSuccess 'node --test'"
+  },
+  "types": "types",
+  "exports": {
+    ".": {
+      "import": "./esm/index.js",
+      "require": "./cjs/index.js",
+      "types": "./types/index.d.ts"
+    }
+  }
+}

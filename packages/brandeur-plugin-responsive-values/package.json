@@ -1,6 +1,6 @@
 {
   "name": "brandeur-plugin-responsive-values",
-  "version": "0.0.6",
+  "version": "0.0.5",
   "description": "Brandeur plugin to resolve responsive array values",
   "typings": "index.d.ts",
   "main": "lib/index.js",
@@ -50,7 +50,7 @@
     "@babel/preset-env": "^7.23.8",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^29.7.0",
-    "brandeur-plugin-sort-properties": "^0.0.6",
+    "brandeur-plugin-sort-properties": "^0.0.5",
     "cross-env": "^7.0.3",
     "jest": "^29.7.0",
     "rimraf": "^5.0.5"

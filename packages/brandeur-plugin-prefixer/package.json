@@ -37,6 +37,9 @@
   ],
   "author": "Robin Weser",
   "license": "MIT",
+  "dependencies": {
+    "isobject": "^4.0.0"
+  },
   "devDependencies": {
     "@babel/cli": "^7.23.4",
     "@babel/core": "^7.23.7",

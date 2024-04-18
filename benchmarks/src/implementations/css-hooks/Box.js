@@ -10,15 +10,6 @@ export default function Box({
   outer = false,
   ...other
 }) {
-  console.log(
-    css({
-      ...styles[`color${color}`],
-      ...(fixed && styles.fixed),
-      ...(layout === 'row' && styles.row),
-      ...(outer && styles.outer),
-    })
-  )
-
   return (
     <View
       {...other}

@@ -47,21 +47,23 @@ const prefixes = {
 
 export default function prefixerPlugin() {
   return function addVendorPrefixes(style) {
-    for (let property in style) {
+    const prefixed = {}
+
+    for (const property in style) {
       const value = style[property]
 
       if (isObject(value)) {
-        style[property] = addVendorPrefixes(value)
+        prefixed[property] = addVendorPrefixes(value)
       } else {
         if (prefixes[property]) {
-          delete style[property]
-          style[prefixes[property] + capitalize(property)] = value
-          style[property] = value
+          prefixed[prefixes[property] + capitalize(property)] = value
         }
+
+        prefixed[property] = value
       }
     }
 
-    return style
+    return prefixed
   }
 }
 

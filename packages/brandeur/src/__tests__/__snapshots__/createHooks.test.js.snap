@@ -83,3 +83,25 @@ exports[`Creating hooks should support keyframes 1`] = `
     --zh6im6-0: ;--zh6im6-1:initial;
 }"
 `;
+
+exports[`Creating hooks should support nested theming 1`] = `
+"* {
+    --zh6im6-0: initial;
+    --zh6im6-1: ;
+}
+
+:hover {
+    --zh6im6-0: ;--zh6im6-1:initial;
+}"
+`;
+
+exports[`Creating hooks should support theming 1`] = `
+"* {
+    --zh6im6-0: initial;
+    --zh6im6-1: ;
+}
+
+:hover {
+    --zh6im6-0: ;--zh6im6-1:initial;
+}"
+`;

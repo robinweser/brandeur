@@ -1,6 +1,6 @@
 {
   "name": "brandeur-plugin-sort-properties",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Brandeur plugin that sorts properties according a priority map",
   "typings": "index.d.ts",
   "main": "lib/index.js",

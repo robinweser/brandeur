@@ -3,6 +3,7 @@ import { cssifyObject, hyphenateProperty } from 'css-in-js-utils'
 
 import fallbackValuePlugin from './fallbackValuePlugin'
 import getFallbackVariable from './getFallbackVariable'
+import createTheme from './createTheme'
 
 function processStyle(style, plugins) {
   return plugins.reduce((processed, plugin) => plugin(processed), style)
@@ -74,20 +75,40 @@ function getKeyframesCSS(keyframes) {
 
 export default function createHooks({
   hooks,
+  config = {},
   plugins = [],
   fallbacks = [],
   keyframes = {},
-  theme = {},
+  themes = {},
 }) {
   if (fallbacks.length > 0) {
     plugins.push(fallbackValuePlugin(fallbacks))
   }
 
-  const [baseCSS, fn] = baseCreateHooks(hooks)
+  const [baseCSS, fn] = baseCreateHooks(hooks, config)
   const fallbackCSS = getFallbackCSS(fallbacks)
   const keyframesCSS = getKeyframesCSS(keyframes)
 
-  const staticCSS = keyframesCSS + fallbackCSS + baseCSS
+  let themeCSS = ''
+
+  const theme = Object.keys(themes).reduce((merged, name) => {
+    const [theme, variables] = createTheme(themes[name])
+
+    themeCSS +=
+      '.' +
+      name +
+      '{' +
+      Object.keys(variables).reduce(
+        (css, property) => css + property + ':' + variables[property] + ';',
+        ''
+      ) +
+      '}'
+
+    // TODO: use-deep-merge
+    return { ...merged, ...theme }
+  }, {})
+
+  const staticCSS = keyframesCSS + fallbackCSS + themeCSS + baseCSS
 
   const keyframeNames = Object.keys(keyframes).reduce(
     (keyframeNames, animationName) => ({ [animationName]: animationName }),

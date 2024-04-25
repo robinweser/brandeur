@@ -6,6 +6,9 @@ export default function sortPropertiesPlugin(propertyPriority = {}) {
   return function sort(style) {
     return Object.keys(style)
       .sort((a, b) => getPriority(a) - getPriority(b))
-      .reduce((out, property) => ({ ...out, [property]: style[property] }), {})
+      .reduce(
+        (out, property) => ({ ...out, [property]: sort(style[property]) }),
+        {}
+      )
   }
 }

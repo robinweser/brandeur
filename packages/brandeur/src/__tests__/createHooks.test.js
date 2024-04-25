@@ -4,6 +4,44 @@ import createHooks from '../createHooks'
 import fallbackValue from '../fallbackValue'
 
 describe('Creating hooks', () => {
+  it('should support multiple styles', () => {
+    const [_, css] = createHooks({
+      hooks: {
+        ':hover': ':hover',
+      },
+    })
+
+    expect(css({ color: 'red' }, { fontSize: 16 })).toEqual({
+      color: 'red',
+      fontSize: 16,
+    })
+  })
+
+  it('should support nested arrays of styles', () => {
+    const [_, css] = createHooks({
+      hooks: {
+        ':hover': ':hover',
+      },
+    })
+
+    expect(
+      css(
+        [
+          { color: 'red', padding: 5 },
+          { fontSize: 16 },
+          [{ color: 'blue', backgroundColor: 'red' }, { lineHeight: 1 }],
+        ],
+        { padding: 10 }
+      )
+    ).toEqual({
+      padding: 10,
+      color: 'blue',
+      backgroundColor: 'red',
+      fontSize: 16,
+      lineHeight: 1,
+    })
+  })
+
   it('should support fallbacks', () => {
     const [staticCSS, css] = createHooks({
       hooks: {
@@ -58,14 +96,21 @@ describe('Creating hooks', () => {
     })
   })
 
-  it('should support theming', () => {
+  it('should support themes', () => {
     const [staticCSS, css] = createHooks({
       hooks: {
         ':hover': ':hover',
       },
-      theme: {
-        colors: {
-          foreground: 'red',
+      themes: {
+        light: {
+          colors: {
+            primary: 'red',
+          },
+        },
+        dark: {
+          colors: {
+            primary: 'blue',
+          },
         },
       },
     })
@@ -73,21 +118,28 @@ describe('Creating hooks', () => {
     expect(beautify(staticCSS)).toMatchSnapshot()
     expect(
       css(({ theme }) => ({
-        color: theme.colors.foreground,
+        color: theme.colors.primary,
       }))
     ).toEqual({
-      color: 'red',
+      color: 'var(--colors-primary)',
     })
   })
 
-  it('should support nested theming', () => {
+  it('should support themes in multiple styles', () => {
     const [staticCSS, css] = createHooks({
       hooks: {
         ':hover': ':hover',
       },
-      theme: {
-        colors: {
-          foreground: 'red',
+      themes: {
+        light: {
+          colors: {
+            primary: 'red',
+          },
+        },
+        dark: {
+          colors: {
+            primary: 'blue',
+          },
         },
       },
     })
@@ -96,50 +148,12 @@ describe('Creating hooks', () => {
     expect(
       css({ fontSize: 12 }, [
         { backgroundColor: 'blue' },
-        ({ theme }) => ({ color: theme.colors.foreground }),
+        ({ theme }) => ({ color: theme.colors.primary }),
       ])
     ).toEqual({
       backgroundColor: 'blue',
       fontSize: 12,
-      color: 'red',
-    })
-  })
-
-  it('should support multiple styles', () => {
-    const [_, css] = createHooks({
-      hooks: {
-        ':hover': ':hover',
-      },
-    })
-
-    expect(css({ color: 'red' }, { fontSize: 16 })).toEqual({
-      color: 'red',
-      fontSize: 16,
-    })
-  })
-
-  it('should support nested arrays of styles', () => {
-    const [_, css] = createHooks({
-      hooks: {
-        ':hover': ':hover',
-      },
-    })
-
-    expect(
-      css(
-        [
-          { color: 'red', padding: 5 },
-          { fontSize: 16 },
-          [{ color: 'blue', backgroundColor: 'red' }, { lineHeight: 1 }],
-        ],
-        { padding: 10 }
-      )
-    ).toEqual({
-      padding: 10,
-      color: 'blue',
-      backgroundColor: 'red',
-      fontSize: 16,
-      lineHeight: 1,
+      color: 'var(--colors-primary)',
     })
   })
 })

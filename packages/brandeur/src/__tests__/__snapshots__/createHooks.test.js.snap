@@ -84,8 +84,16 @@ exports[`Creating hooks should support keyframes 1`] = `
 }"
 `;
 
-exports[`Creating hooks should support nested theming 1`] = `
-"* {
+exports[`Creating hooks should support themes 1`] = `
+".light {
+    --colors-primary: red;
+}
+
+.dark {
+    --colors-primary: blue;
+}
+
+* {
     --zh6im6-0: initial;
     --zh6im6-1: ;
 }
@@ -95,8 +103,16 @@ exports[`Creating hooks should support nested theming 1`] = `
 }"
 `;
 
-exports[`Creating hooks should support theming 1`] = `
-"* {
+exports[`Creating hooks should support themes in multiple styles 1`] = `
+".light {
+    --colors-primary: red;
+}
+
+.dark {
+    --colors-primary: blue;
+}
+
+* {
     --zh6im6-0: initial;
     --zh6im6-1: ;
 }

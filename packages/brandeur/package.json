@@ -1,32 +1,24 @@
 {
   "name": "brandeur",
-  "version": "0.0.8",
-  "description": "Convenience layer and tool belt for css-hooks",
-  "typings": "index.d.ts",
-  "main": "lib/index.js",
-  "module": "es/index.js",
-  "jsnext:main": "es/index.js",
+  "version": "1.0.0",
+  "description": "Styling tool belt on top of css-hooks and fela plugins",
+  "repository": "https://github.com/robinweser/brandeur.git",
+  "author": "Robin Weser",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "index.d.ts",
   "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "browserslist": "> 0.25%, not dead",
   "files": [
     "LICENSE",
     "README.md",
     "index.d.ts",
-    "lib/**",
-    "es/**"
+    "dist/**"
   ],
-  "scripts": {
-    "setup": "pnpm build",
-    "clean": "rimraf lib es coverage",
-    "build": "pnpm clean && pnpm build:es && pnpm build:lib",
-    "build:es": "babel src --out-dir es --ignore **/__tests__",
-    "build:lib": "cross-env BABEL_ENV=commonjs babel src --out-dir lib --ignore **/__tests__",
-    "watch": "npm run watch:lib & npm run watch:es",
-    "watch:lib": "BABEL_ENV=commonjs babel src -d lib -w",
-    "watch:es": "babel src -d es -w",
-    "test": "jest --config=jest.config.js",
-    "coverage": "pnpm test -- --coverage"
-  },
-  "repository": "https://github.com/robinweser/brandeur/",
   "keywords": [
     "brandeur",
     "dynamic styling",
@@ -40,29 +32,32 @@
     "state-driven styling",
     "cssinjs"
   ],
-  "author": "Robin Weser",
-  "license": "MIT",
+  "scripts": {
+    "setup": "pnpm build",
+    "clean": "rimraf dist coverage",
+    "build": "pnpm clean && babel src --out-dir dist --ignore **/__tests__",
+    "dev": "babel src -d dist -w",
+    "test": "echo 0"
+  },
   "dependencies": {
+    "@types/react": "^18.3.3",
     "css-in-js-utils": "^3.1.0",
     "fast-loops": "^1.1.3",
     "isobject": "^4.0.0"
   },
   "peerDependencies": {
+    "@css-hooks/core": "^1.0.0",
     "@css-hooks/react": "^1.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.23.4",
     "@babel/core": "^7.23.7",
     "@babel/node": "^7.22.19",
-    "@babel/plugin-transform-modules-commonjs": "^7.23.2",
-    "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.23.8",
+    "@css-hooks/core": "^1.8.2",
     "@css-hooks/react": "^1.8.2",
-    "babel-core": "7.0.0-bridge.0",
-    "babel-jest": "^29.7.0",
-    "cross-env": "^7.0.3",
+    "ava": "^6.1.3",
     "cssbeautify": "^0.3.1",
-    "jest": "^29.7.0",
     "rimraf": "^5.0.5"
   }
 }

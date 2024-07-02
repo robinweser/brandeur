@@ -1,7 +1,7 @@
 {
-  "name": "brandeur-plugin-prefixer",
+  "name": "brandeur-plugin-debug",
   "version": "1.0.0",
-  "description": "Brandeur plugin that adds vendor prefixes",
+  "description": "Brandeur plugin to debug layouts",
   "repository": "https://github.com/robinweser/brandeur.git",
   "author": "Robin Weser",
   "license": "MIT",
@@ -25,8 +25,7 @@
     "inline style",
     "css-hooks",
     "brandeur plugin",
-    "vendor prefixer",
-    "autoprefixer"
+    "debugger"
   ],
   "scripts": {
     "setup": "pnpm build",
@@ -36,7 +35,7 @@
     "test": "ava"
   },
   "dependencies": {
-    "isobject": "^4.0.0"
+    "styles-debugger": "^1.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.23.4",

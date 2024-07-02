@@ -1,2 +1,2 @@
-export { default as createHooks } from './createHooks'
-export { default as fallbackValue } from './fallbackValue'
+export { default as createHooks } from './createHooks.js'
+export { default as fallbackValue } from './fallbackValue.js'

@@ -1,7 +1,7 @@
 {
-  "name": "brandeur-plugin-prefixer",
+  "name": "brandeur-plugin-responsive-value",
   "version": "1.0.0",
-  "description": "Brandeur plugin that adds vendor prefixes",
+  "description": "Brandeur plugin to resolve responsive array values",
   "repository": "https://github.com/robinweser/brandeur.git",
   "author": "Robin Weser",
   "license": "MIT",
@@ -25,8 +25,8 @@
     "inline style",
     "css-hooks",
     "brandeur plugin",
-    "vendor prefixer",
-    "autoprefixer"
+    "responsive design",
+    "responsive style"
   ],
   "scripts": {
     "setup": "pnpm build",
@@ -36,6 +36,7 @@
     "test": "ava"
   },
   "dependencies": {
+    "css-in-js-utils": "^3.1.0",
     "isobject": "^4.0.0"
   },
   "devDependencies": {

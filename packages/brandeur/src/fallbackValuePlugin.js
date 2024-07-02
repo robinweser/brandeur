@@ -1,4 +1,6 @@
-import getFallbackVariable from './getFallbackVariable'
+import isPlainObject from 'isobject'
+
+import getFallbackVariable from './getFallbackVariable.js'
 
 export default function fallbackValuePlugin(fallbacks = []) {
   const fallbackMap = fallbacks.reduce((map, { property, values, match }) => {
@@ -13,14 +15,17 @@ export default function fallbackValuePlugin(fallbacks = []) {
   }, {})
 
   return function resolveFallbackValue(style) {
-    for (let prop in style) {
-      if (typeof style[prop] === 'object') {
-        style[prop] = resolveFallbackValue(style[prop])
-      } else {
-        const fallback = fallbackMap[prop]
+    for (let property in style) {
+      const value = style[property]
 
-        if (fallback && fallback === style[prop]) {
-          style[prop] = 'var(' + getFallbackVariable(prop, fallback) + ')'
+      if (isPlainObject(value)) {
+        style[property] = resolveFallbackValue(value)
+      } else {
+        const fallback = fallbackMap[property]
+
+        if (fallback && fallback === value) {
+          style[property] =
+            'var(' + getFallbackVariable(property, fallback) + ')'
         }
       }
     }

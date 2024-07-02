@@ -1,16 +1,16 @@
 import { createHooks as baseCreateHooks } from '@css-hooks/react'
-import { cssifyObject, hyphenateProperty } from 'css-in-js-utils'
+import { cssifyObject, hyphenateProperty, assignStyle } from 'css-in-js-utils'
+import { arrayMap, arrayReduce } from 'fast-loops'
 
-import fallbackValuePlugin from './fallbackValuePlugin'
-import getFallbackVariable from './getFallbackVariable'
-import createTheme from './createTheme'
+import fallbackValuePlugin from './fallbackValuePlugin.js'
+import getFallbackVariable from './getFallbackVariable.js'
 
 function processStyle(style, plugins) {
-  return plugins.reduce((processed, plugin) => plugin(processed), style)
+  return arrayReduce(plugins, (processed, plugin) => plugin(processed), style)
 }
 
 function resolveStyle(style, theme, keyframes) {
-  if (typeof style === 'function') {
+  if (style instanceof Function) {
     return style({ theme, keyframes })
   }
 
@@ -79,7 +79,8 @@ export default function createHooks({
   plugins = [],
   fallbacks = [],
   keyframes = {},
-  themes = {},
+  theme = {},
+  mergeStyle = assignStyle,
 }) {
   if (fallbacks.length > 0) {
     plugins.push(fallbackValuePlugin(fallbacks))
@@ -89,26 +90,7 @@ export default function createHooks({
   const fallbackCSS = getFallbackCSS(fallbacks)
   const keyframesCSS = getKeyframesCSS(keyframes)
 
-  let themeCSS = ''
-
-  const theme = Object.keys(themes).reduce((merged, name) => {
-    const [theme, variables] = createTheme(themes[name])
-
-    themeCSS +=
-      '.' +
-      name +
-      '{' +
-      Object.keys(variables).reduce(
-        (css, property) => css + property + ':' + variables[property] + ';',
-        ''
-      ) +
-      '}'
-
-    // TODO: use-deep-merge
-    return { ...merged, ...theme }
-  }, {})
-
-  const staticCSS = keyframesCSS + fallbackCSS + themeCSS + baseCSS
+  const staticCSS = keyframesCSS + fallbackCSS + baseCSS
 
   const keyframeNames = Object.keys(keyframes).reduce(
     (keyframeNames, animationName) => ({ [animationName]: animationName }),
@@ -116,14 +98,16 @@ export default function createHooks({
   )
 
   function css(...styles) {
-    return fn(
-      ...styles
-        .flat(Infinity)
-        .filter(Boolean)
-        .map((style) =>
-          processStyle(resolveStyle(style, theme, keyframeNames), plugins)
-        )
+    const flattened = styles.flat(Infinity)
+    const filtered = flattened.filter(Boolean)
+    const resolved = arrayMap(filtered, (style) =>
+      resolveStyle(style, theme, keyframeNames)
     )
+
+    const merged = mergeStyle({}, ...filtered)
+    const processed = processStyle(merged, plugins)
+
+    return fn(processed)
   }
 
   return [staticCSS, css]

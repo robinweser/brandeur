@@ -1,32 +1,35 @@
-import prefixerPlugin from '../index'
+import test from 'ava'
 
-describe('Using brandeur-plugin-prefixer', () => {
-  it('should add vendor prefixes where needed', () => {
-    const resolve = prefixerPlugin()
+import prefixer from '../index.js'
 
-    expect(
-      resolve({
-        color: 'red',
-        appearance: 'none',
-      })
-    ).toEqual({
+test('Prefixing styles should add vendor prefixes where needed', (t) => {
+  const resolve = prefixer()
+
+  t.deepEqual(
+    resolve({
+      color: 'red',
+      appearance: 'none',
+    }),
+    {
       color: 'red',
       WebkitAppearance: 'none',
       appearance: 'none',
-    })
-    expect(
-      resolve({
-        color: 'red',
-        ':hover': {
-          appearance: 'none',
-        },
-      })
-    ).toEqual({
+    }
+  )
+
+  t.deepEqual(
+    resolve({
+      color: 'red',
+      ':hover': {
+        appearance: 'none',
+      },
+    }),
+    {
       color: 'red',
       ':hover': {
         WebkitAppearance: 'none',
         appearance: 'none',
       },
-    })
-  })
+    }
+  )
 })

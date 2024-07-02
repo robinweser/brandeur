@@ -2,19 +2,30 @@
 
 Brandeur is a convenience layer and tool belt on top of [css-hooks](https://css-hooks.com) for React.
 
-<a href="https://bundlephobia.com/result?p=brandeur@latest"><img alt="Bundlephobia" src="https://img.shields.io/bundlephobia/minzip/brandeur.svg"></a> <img alt="npm downloads" src="https://img.shields.io/npm/dm/brandeur.svg">
-
-## Support Us
-
-Support Robin Weser's work on Brandeur and its ecosystem directly via [**GitHub Sponsors**](https://github.com/sponsors/robinweser).
+<img alt="npm version" src="https://badge.fury.io/js/brandeur.svg"> <img alt="npm downloads" src="https://img.shields.io/npm/dm/brandeur.svg"> <a href="https://bundlephobia.com/result?p=brandeur@latest"><img alt="Bundlephobia" src="https://img.shields.io/bundlephobia/minzip/brandeur.svg"></a>
 
 ## Benefits
 
-- Same API
+- Similar API
+- Theming
+- RTL Conversion
 - Vendor Prefixing
 - Fallback Value Support
 - Keyframes Support
+- Extendable Plugin System
 - Fela Plugin Compatibility
+- TypeScript Support
+
+## Installation
+
+```sh
+# npm
+npm i --save brandeur
+# yarn
+yarn add brandeur
+# pnpm
+pnpm add brandeur
+```
 
 ## The Gist
 
@@ -138,28 +149,39 @@ const positionSticky = fallbackValue('position', ['-webkit-sticky', 'sticky'])
 
 ## Plugins
 
-The following table shows all plugins available for Brandeur. It supports quite a bunch of Fela plugins, but might not always be fully compatible. Therefore we're highlighting the differences as well.
+Brandeur becomes really powerful when utilising the rich plugin echosystem. That way, we can extend the styling engine to support our personal needs.
 
-| Name                                                                                                                             | Description                                                                                                             | Compatibility                                                                               |
-| -------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| [brandeur-plugin-enforce-longhands](https://github.com/robinweser/brandeur/tree/main/packages/brandeur-plugin-enforce-longhands) | Specific implementation of sort-properties. Enforces longhand over shorthand properties for more deterministic results. | -                                                                                           |
-| [brandeur-plugin-prefixer](https://github.com/robinweser/brandeur/tree/main/packages/brandeur-plugin-prefixer)                   | Adds vendor prefixes to style objects.                                                                                  | -                                                                                           |
-| [brandeur-plugin-sort-properties](https://github.com/robinweser/brandeur/tree/main/packages/brandeur-plugin-sort-properties)     | Sorts properties according to a priorty map. Helpful when trying to enforce certain properties over others.             | -                                                                                           |
-| [brandeur-plugin-responsive-values](https://github.com/robinweser/brandeur/tree/main/packages/brandeur-plugin-responsive-values) | Resolves responsive array values.                                                                                       | -                                                                                           |
-| [fela-plugin-bidi](https://github.com/robinweser/fela/tree/master/packages/fela-plugin-bidi)                                     | Enables direction-independent styles by converting them to either `rtl` or `ltr` on the fly.                            | Does not support context-specific `direction` via `theme`.                                  |
-| [fela-plugin-custom-property](https://github.com/robinweser/fela/tree/master/packages/fela-plugin-custom-property)               | Resolves custom properties.                                                                                             | Full                                                                                        |
-| [fela-plugin-expand-shorthand](https://github.com/robinweser/fela/tree/master/packages/fela-plugin-expand-shorthand)             | Expands shorthand properties into their longhand forms.                                                                 | Full                                                                                        |
-| [fela-plugin-extend](https://github.com/robinweser/fela/tree/master/packages/fela-plugin-extend)                                 | Adds a convenient syntax for (conditionally) extending styles.                                                          | Full                                                                                        |
-| [fela-plugin-hover-media](https://github.com/robinweser/fela/tree/master/packages/fela-plugin-hover-media)                       | Wraps `:hover` styles in `@media (hover: hover)` queries.                                                               | Full                                                                                        |
-| [fela-plugin-kebab-case](https://github.com/robinweser/fela/tree/master/packages/fela-plugin-kebab-case)                         | Converts properties written in kebab-case to camelCase.                                                                 | Full                                                                                        |
-| [fela-plugin-logger](https://github.com/robinweser/fela/tree/master/packages/fela-plugin-logger)                                 | Logs processed style objects.                                                                                           | Full                                                                                        |
-| [fela-plugin-multiple-selectors](https://github.com/robinweser/fela/tree/master/packages/fela-plugin-multiple-selectors)         | Resolves multiple comma-separated selectors to individual object keys.                                                  | Full                                                                                        |
-| [fela-plugin-responsive-value](https://github.com/robinweser/fela/tree/master/packages/fela-plugin-responsive-value)             | Resolves array values to pre-defined media queries. Useful for component APIs.                                          | Does not support the `props` argument to receive the `theme`. Use a static `theme` instead. |
-| [fela-plugin-rtl](https://github.com/robinweser/fela/tree/master/packages/fela-plugin-rtl)                                       | Converts styles to their right-to-left counterpart                                                                      | Does not support context-specific `direction` via `theme`.                                  |
-| [fela-plugin-unit](https://github.com/robinweser/fela/tree/master/packages/fela-plugin-unit)                                     | Automatically adds units to values if needed.                                                                           | Full                                                                                        |
-| [fela-plugin-validator](https://github.com/robinweser/fela/tree/master/packages/fela-plugin-validator)                           | Validates, logs & optionally deletes invalid properties for keyframes and rules.                                        | Full                                                                                        |
+### Brandeur Plugins
 
-### Incompatible Fela Plugins
+| Name                                                                                                                             | Description                                                                                                             |
+| -------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| [brandeur-plugin-enforce-longhand](https://github.com/robinweser/brandeur/tree/main/packages/brandeur-plugin-enforce-longhands)  | Specific implementation of sort-properties. Enforces longhand over shorthand properties for more deterministic results. |
+| [brandeur-plugin-prefixer](https://github.com/robinweser/brandeur/tree/main/packages/brandeur-plugin-prefixer)                   | Adds vendor prefixes to style objects.                                                                                  |
+| [brandeur-plugin-sort-properties](https://github.com/robinweser/brandeur/tree/main/packages/brandeur-plugin-sort-properties)     | Sorts properties according to a priorty map. Helpful when trying to enforce certain properties over others.             |
+| [brandeur-plugin-responsive-values](https://github.com/robinweser/brandeur/tree/main/packages/brandeur-plugin-responsive-values) | Resolves responsive array values.                                                                                       |
+
+### Fela Plugins
+
+Thanks to similar architecture and API design, brandeur supports almost all [Fela plugins](https://fela.js.org/docs/latest/advanced/plugins) out of the box.
+
+> **Tip**: In order to get proper types, make sure that you import `brandeur` in the same file where Fela plugins are imported as types for all Fela plugins are shipped with the core package.
+
+| Name                                                                                                                     | Description                                                                                  | Compatibility                                                                               |
+| ------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| [fela-plugin-bidi](https://github.com/robinweser/fela/tree/master/packages/fela-plugin-bidi)                             | Enables direction-independent styles by converting them to either `rtl` or `ltr` on the fly. | Does not support context-specific `direction` via `theme`.                                  |
+| [fela-plugin-custom-property](https://github.com/robinweser/fela/tree/master/packages/fela-plugin-custom-property)       | Resolves custom properties.                                                                  | Full                                                                                        |
+| [fela-plugin-expand-shorthand](https://github.com/robinweser/fela/tree/master/packages/fela-plugin-expand-shorthand)     | Expands shorthand properties into their longhand forms.                                      | Full                                                                                        |
+| [fela-plugin-extend](https://github.com/robinweser/fela/tree/master/packages/fela-plugin-extend)                         | Adds a convenient syntax for (conditionally) extending styles.                               | Full                                                                                        |
+| [fela-plugin-hover-media](https://github.com/robinweser/fela/tree/master/packages/fela-plugin-hover-media)               | Wraps `:hover` styles in `@media (hover: hover)` queries.                                    | Full                                                                                        |
+| [fela-plugin-kebab-case](https://github.com/robinweser/fela/tree/master/packages/fela-plugin-kebab-case)                 | Converts properties written in kebab-case to camelCase.                                      | Full                                                                                        |
+| [fela-plugin-logger](https://github.com/robinweser/fela/tree/master/packages/fela-plugin-logger)                         | Logs processed style objects.                                                                | Full                                                                                        |
+| [fela-plugin-multiple-selectors](https://github.com/robinweser/fela/tree/master/packages/fela-plugin-multiple-selectors) | Resolves multiple comma-separated selectors to individual object keys.                       | Full                                                                                        |
+| [fela-plugin-responsive-value](https://github.com/robinweser/fela/tree/master/packages/fela-plugin-responsive-value)     | Resolves array values to pre-defined media queries. Useful for component APIs.               | Does not support the `props` argument to receive the `theme`. Use a static `theme` instead. |
+| [fela-plugin-rtl](https://github.com/robinweser/fela/tree/master/packages/fela-plugin-rtl)                               | Converts styles to their right-to-left counterpart                                           | Does not support context-specific `direction` via `theme`.                                  |
+| [fela-plugin-unit](https://github.com/robinweser/fela/tree/master/packages/fela-plugin-unit)                             | Automatically adds units to values if needed.                                                | Full                                                                                        |
+| [fela-plugin-validator](https://github.com/robinweser/fela/tree/master/packages/fela-plugin-validator)                   | Validates, logs & optionally deletes invalid properties for keyframes and rules.             | Full                                                                                        |
+
+#### Incompatible Plugins
 
 | Plugin                                                                                                                                                                     | Alternative                                                                                                                 |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
@@ -168,12 +190,19 @@ The following table shows all plugins available for Brandeur. It supports quite 
 | fela-plugin-embedded                                                                                                                                                       | No replacement yet due to missing font and keyframe primitives.                                                             |
 | fela-plugin-theme-value                                                                                                                                                    | No replacement yet due to incompatible plugin APIs.                                                                         |
 
+## TypeScript
+
+### Style Object
+
+tbd.
+
+### Fela Plugins
+
+tbd.
+
 ## Roadmap
 
-- TypeScript Support
-- RTL Conversion
 - Theming Primitives
-- Configuration
 - Framework-Agnostic API
 
 ## License

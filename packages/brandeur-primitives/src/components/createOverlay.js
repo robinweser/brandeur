@@ -29,6 +29,7 @@ export default function createOverlay({ El }) {
       children,
       visible = false,
       zIndex,
+      inset,
       top,
       left,
       bottom,

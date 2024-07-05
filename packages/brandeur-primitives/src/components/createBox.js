@@ -51,12 +51,12 @@ export default function createBox({ El, baselineGrid = 1 }) {
       alignItems = 'stretch',
       alignSelf,
       flex,
-      grow = 0,
-      shrink = 0,
+      grow,
+      shrink,
       basis = 'auto',
       direction = 'column',
       display = 'flex',
-      wrap = 'nowrap',
+      wrap,
       ...props
     },
     ref

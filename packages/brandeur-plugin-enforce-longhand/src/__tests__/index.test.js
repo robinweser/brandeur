@@ -16,7 +16,7 @@ test('Enforcing longhands should sort rules', (t) => {
 })
 
 test('Enforcing longhands should adhere to the border mode', (t) => {
-  const resolve = enforceLonghand({ borderMode: 'directional' })
+  const resolve = enforceLonghand('directional')
 
   t.snapshot(
     JSON.stringify(

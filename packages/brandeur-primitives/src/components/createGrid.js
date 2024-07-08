@@ -23,7 +23,8 @@ export default function createGrid({ El, baselineGrid = 1 }) {
             gridTemplateAreas: areas,
           },
           style,
-        ]}>
+        ]}
+      >
         {children}
       </El>
     )

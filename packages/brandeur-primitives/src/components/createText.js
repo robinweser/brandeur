@@ -52,12 +52,14 @@ export default function createText({ El }, typography) {
             fontSize: 'var(--tehlu_text-size, 1rem)',
           },
           style,
-        ]}>
+        ]}
+      >
         <span
           style={{
             display: 'contents',
             '--tehlu_text-inner-display': 'inline-block',
-          }}>
+          }}
+        >
           {children}
         </span>
       </El>

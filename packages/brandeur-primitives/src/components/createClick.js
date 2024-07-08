@@ -99,7 +99,8 @@ export default function createClick({ El }, linkComponent = 'a') {
         onTouchStart={() => {}}
         {...props}
         {...additionalProps}
-        as={as}>
+        as={as}
+      >
         {children}
       </El>
     )

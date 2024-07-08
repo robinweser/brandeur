@@ -201,8 +201,8 @@ Box renders a [El](#el) component and thus also accepts the `as` and `style` pro
 | Prop       | Type               |  CSS Property     |  Default |
 | ---------- | ------------------ | ----------------- | -------- |
 | variant    | `keyof typography` |                   |          |
-| size       |                    |                   |          |
 | color      |                    |                   |          |
+| size       |                    | `font-size`       |          |
 | height     |                    | `line-height`     |          |
 | weight     |                    | `font-weight`     |          |
 | decoration |                    | `text-decoration` |          |
@@ -238,7 +238,46 @@ const Example = (
 
 ### createClick
 
-tbd.
+Takes the system object and an optional link component and returns a universal Click component that accepts an action that can be both a `href` string as well as an `onClick` event function.<br />
+It can be used to wrap framework-specific link components such as `next/link`.
+
+By default it renders a plain HTML `<a>` element for links.<br />
+If `onClick` is passed, it renders a HTML `<button>` element.
+
+#### Props
+
+Click renders a [El](#el) component and thus also accepts the `as` and `style` props mentioned above.
+
+| Prop   | Type              |
+| ------ | ----------------- |
+| action | [Action](#action) |
+
+##### Action
+
+```tsx
+string | (e: React.MouseEvent<HTMLElement>) => void
+```
+
+If the passed link component takes a different `href` type, Click will also inherit that type.
+
+#### Example
+
+```tsx
+import Link from 'next/link'
+import { createClick } from 'brandeur-primitives'
+
+const Click = createClick(system, Link)
+
+const Example = (
+  <>
+    <Click action={() => alert('CLICKED')}>Clickable Button</Click>
+    <Click href="/subpage">Just a link</Click>
+    <Click href={{ pathname: '/subpage', query: { name: 'test' } }}>
+      next/link href options
+    </Click>
+  </>
+)
+```
 
 ### createGrid
 

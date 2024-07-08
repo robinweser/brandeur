@@ -41,7 +41,7 @@ const [staticCSS, css] = createHooks({
   hooks: {
     // either custom hooks or @css-hooks/recommended
   },
-  plugins: [prefixer()],
+  plugins: [prefixer()] as const,
   fallbacks: [
     ...fallbacks,
     { property: 'position', values: ['-webkit-sticky', 'sticky'] },
@@ -153,12 +153,13 @@ Brandeur becomes really powerful when utilising the rich plugin echosystem. That
 
 ### Brandeur Plugins
 
-| Name                                                                                                                             | Description                                                                                                             |
-| -------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| [brandeur-plugin-enforce-longhand](https://github.com/robinweser/brandeur/tree/main/packages/brandeur-plugin-enforce-longhands)  | Specific implementation of sort-properties. Enforces longhand over shorthand properties for more deterministic results. |
-| [brandeur-plugin-prefixer](https://github.com/robinweser/brandeur/tree/main/packages/brandeur-plugin-prefixer)                   | Adds vendor prefixes to style objects.                                                                                  |
-| [brandeur-plugin-sort-properties](https://github.com/robinweser/brandeur/tree/main/packages/brandeur-plugin-sort-properties)     | Sorts properties according to a priorty map. Helpful when trying to enforce certain properties over others.             |
-| [brandeur-plugin-responsive-values](https://github.com/robinweser/brandeur/tree/main/packages/brandeur-plugin-responsive-values) | Resolves responsive array values.                                                                                       |
+| Name                                                                                                                           | Description                                                                                                           |
+| ------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| [brandeur-plugin-debug](https://github.com/robinweser/brandeur/tree/main/packages/brandeur-plugin-debug)                       | Uses [styles-debugger](https://github.com/kitze/styles-debugger) to visually debug styles.                            |
+| [brandeur-plugin-enforce-longhand](https://github.com/robinweser/brandeur/tree/main/packages/brandeur-plugin-enforce-longhand) | Specific implementation of sort-property. Enforces longhand over shorthand properties for more deterministic results. |
+| [brandeur-plugin-prefixer](https://github.com/robinweser/brandeur/tree/main/packages/brandeur-plugin-prefixer)                 | Adds vendor prefixes to style objects.                                                                                |
+| [brandeur-plugin-sort-property](https://github.com/robinweser/brandeur/tree/main/packages/brandeur-plugin-sort-property)       | Sorts properties according to a priorty map. Helpful when trying to enforce certain properties over others.           |
+| [brandeur-plugin-responsive-value](https://github.com/robinweser/brandeur/tree/main/packages/brandeur-plugin-responsive-value) | Resolves responsive array values.                                                                                     |
 
 ### Fela Plugins
 
@@ -192,13 +193,48 @@ Thanks to similar architecture and API design, brandeur supports almost all [Fel
 
 ## TypeScript
 
+Brandeur comes with native TypeScript support, but requires some manual setup to get the correct types for all plugins.
+
 ### Style Object
 
-tbd.
+By default, Brandeur automatically infers the type just like css-hooks does. It supports all `React.CSSProperties`. For convenience, we also export a `Style` type from brandeur.
+
+In order to extend the type with plugins, we need to set them up correctly.
+
+```tsx
+import { createHooks } from 'brandeur'
+
+import extend from 'fela-plugin-extend'
+import responsiveValue, {
+  ResponsiveStyle,
+} from 'brandeur-plugin-responsive-value'
+
+const [staticCSS, css] = createHooks({
+  // ... config
+  plugins: [
+    // allow responsvie array values in extended styles
+    extend<ResponsiveStyle>(),
+    responsiveValue([
+      '@media (min-width: 480px)',
+      '@media (min-width: 1024px)',
+    ]),
+    prefixer(),
+    // use "as const" to get fixed types
+  ] as const,
+})
+```
 
 ### Fela Plugins
 
-tbd.
+Make sure to import `brandeur` in your configuration file to load all the plugin types for Fela plugins. Otherwise you'll get the native ones from Fela which have conflicting types.
+
+```tsx
+// load types
+import 'brandeur'
+
+import extend from 'fela-plugin-extend'
+import hoverMedia from 'fela-plugin-hover-media'
+```
 
 ## Roadmap
 

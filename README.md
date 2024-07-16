@@ -236,6 +236,13 @@ import extend from 'fela-plugin-extend'
 import hoverMedia from 'fela-plugin-hover-media'
 ```
 
+## Keyframes
+
+Brandeur provides a simple way to create and consume global keyframes. Check [the gist](#the-gist) for an example.
+
+Sometimes however we want to have dynamic keyframes and/or not render all keyframes upfront. In such cases, we recommend using a separate package to deal with that.<br />
+I created [react-create-keyframe](https://github.com/robinweser/react-create-keyframe) for exactly those use cases. Feel free to check it out!
+
 ## Roadmap
 
 - Theming Primitives

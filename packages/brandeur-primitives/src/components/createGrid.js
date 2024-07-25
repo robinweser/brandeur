@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react'
 
 import applyMultiplier from '../utils/applyMultiplier.js'
 
-export default function createGrid({ El }, baselineGrid = 1) {
+export default function createGrid({ El, baselineGrid = 1 }) {
   return forwardRef(function Grid(
     { gap, columns, rows, areas, style, children, ...props },
     ref

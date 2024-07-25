@@ -22,7 +22,7 @@ declare module 'brandeur-primitives' {
     baselineGrid?: number
   }
 
-  type ElProps<E, Hooks, Theme, Plugins extends Array<any>> = {
+  type ElProps<E, Hooks, Theme, Plugins = []> = {
     style?: Rules<Theme, Properties<Hooks, Plugins>>
     as?: E | undefined
   } & DistributiveOmit<
@@ -31,27 +31,22 @@ declare module 'brandeur-primitives' {
   > &
     RefAttributes<any>
 
-  export function createSystem<
-    Hooks extends string,
-    Theme = {},
-    Plugins extends Array<any> = [],
-  >(
-    config: Config<Hooks, Theme, Plugins>
+  export function createSystem<Hooks extends string, Theme = {}, Plugins = []>(
+    config: Options<Hooks, Theme, Plugins>
   ): {
     El: <E extends ElementType>(
       props: ElProps<E, Hooks, Theme, Plugins>
     ) => JSX.Element
+    styleSheet: string
     baselineGrid: number
     plugins: Plugins
     theme: Theme
     hooks: Hooks
   }
 
-  type System<
-    Hooks extends string,
-    Theme,
-    Plugins extends Array<any>,
-  > = ReturnType<typeof createSystem<Hooks, Theme, Plugins>>
+  type System<Hooks extends string, Theme, Plugins = []> = ReturnType<
+    typeof createSystem<Hooks, Theme, Plugins>
+  >
 
   type UnionToIntersection<T> = (
     T extends any ? (x: T) => any : never
@@ -69,7 +64,7 @@ declare module 'brandeur-primitives' {
         : never
   }
 
-  type Props<T extends Array<any>> = MergeProperties<
+  type Props<T = []> = MergeProperties<
     Style,
     UnionToIntersection<PluginProperties<T[number]>>
   >
@@ -122,11 +117,7 @@ declare module 'brandeur-primitives' {
     marginLeft?: T['marginLeft']
   }
 
-  export function createBox<
-    Hooks extends string,
-    Theme = {},
-    Plugins extends Array<any> = [],
-  >(
+  export function createBox<Hooks extends string, Theme = {}, Plugins = []>(
     system: System<Hooks, Theme, Plugins>
   ): <E extends ElementType>(
     props: ElProps<E, Hooks, Theme, Plugins> & BoxProps<Props<Plugins>>
@@ -137,11 +128,7 @@ declare module 'brandeur-primitives' {
     gap?: T['gap']
     areas?: T['gridTemplateAreas']
   }
-  export function createGrid<
-    Hooks extends string,
-    Theme = {},
-    Plugins extends Array<any> = [],
-  >(
+  export function createGrid<Hooks extends string, Theme = {}, Plugins = []>(
     system: System<Hooks, Theme, Plugins>
   ): <E extends ElementType>(
     props: ElProps<E, Hooks, Theme, Plugins> & GridProps<Props<Plugins>>
@@ -161,7 +148,7 @@ declare module 'brandeur-primitives' {
   export function createClick<
     Hooks extends string,
     Theme = {},
-    Plugins extends Array<any> = [],
+    Plugins = [],
     T extends ElementType = 'a',
   >(
     system: System<Hooks, Theme, Plugins>,
@@ -179,11 +166,7 @@ declare module 'brandeur-primitives' {
     left?: T['left']
     inset?: T['inset']
   }
-  export function createOverlay<
-    Hooks extends string,
-    Theme = {},
-    Plugins extends Array<any> = [],
-  >(
+  export function createOverlay<Hooks extends string, Theme = {}, Plugins = []>(
     system: System<Hooks, Theme, Plugins>
   ): <E extends ElementType>(
     props: ElProps<E, Hooks, Theme, Plugins> & OverlayProps<Props<Plugins>>
@@ -207,7 +190,7 @@ declare module 'brandeur-primitives' {
     Typography,
     Hooks extends string,
     Theme = {},
-    Plugins extends Array<any> = [],
+    Plugins = [],
   >(
     system: System<Hooks, Theme, Plugins>,
     typography: Typography
@@ -219,17 +202,13 @@ declare module 'brandeur-primitives' {
   type SpacerProps<T> = {
     size: T['width']
   }
-  export function createSpacer<
-    Hooks extends string,
-    Theme = {},
-    Plugins extends Array<any> = [],
-  >(
+  export function createSpacer<Hooks extends string, Theme = {}, Plugins = []>(
     system: System<Hooks, Theme, Plugins>
   ): ComponentType<SpacerProps<Props<Plugins>>>
 
   export function createVisuallyHidden<
     Hooks extends string,
     Theme = {},
-    Plugins extends Array<any> = [],
+    Plugins = [],
   >(system: System<Hooks, Theme, Plugins>): ComponentType<PropsWithChildren>
 }

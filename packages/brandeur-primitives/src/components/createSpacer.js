@@ -6,7 +6,7 @@ function getDisplayBySize(size) {
   return size === 0 ? 'none' : 'flex'
 }
 
-export default function createSpacer({ El }, baselineGrid = 1) {
+export default function createSpacer({ El, baselineGrid = 1 }) {
   return function Spacer({ size = 1 }) {
     const spacing = applyMultiplier(baselineGrid)
     const space = spacing(size)

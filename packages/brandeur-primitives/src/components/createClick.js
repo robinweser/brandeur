@@ -93,16 +93,15 @@ export default function createClick({ El }, linkComponent = 'a') {
 
     const additionalProps = getProps()
 
-    return createElement(
-      El,
-      {
-        ref,
-        onTouchStart: () => {},
-        ...props,
-        ...additionalProps,
-        as,
-      },
-      children
+    return (
+      <El
+        ref={ref}
+        onTouchStart={() => {}}
+        {...props}
+        {...additionalProps}
+        as={as}>
+        {children}
+      </El>
     )
   })
 }

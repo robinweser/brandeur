@@ -26,13 +26,14 @@ declare module 'brandeur' {
     fallbacks?: Array<Fallback>
   }
 
-  export type Properties<Hooks, Plugins extends Array<any>> = WithHooks<
+  export type Properties<Hooks, Plugins = []> = WithHooks<
     Hooks,
     Style | PluginProperties<Plugins[number]>
   >
 
   export type Rule<Theme, Props> = (theme: Theme) => Props
   export type Rules<Theme, Props> =
+    | undefined
     | Props
     | Rule<Theme, Props>
     | Array<Rules<Theme, Props>>
@@ -42,11 +43,7 @@ declare module 'brandeur' {
     ...properties_1: (Rules<Theme, Props> | undefined)[]
   ) => CSSProperties
 
-  export function createHooks<
-    Hooks extends string,
-    Theme = {},
-    Plugins extends Array<any> = [],
-  >(
+  export function createHooks<Hooks extends string, Theme = {}, Plugins = []>(
     config: Config<Hooks, Theme, Plugins>
   ): [string, CSSFunction<Theme, Properties<Hooks, Plugins>>]
 }

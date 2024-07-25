@@ -1,6 +1,6 @@
 {
   "name": "brandeur",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Styling tool belt on top of css-hooks and fela plugins",
   "repository": "https://github.com/robinweser/brandeur.git",
   "author": "Robin Weser",

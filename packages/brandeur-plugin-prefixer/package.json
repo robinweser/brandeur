@@ -1,6 +1,6 @@
 {
   "name": "brandeur-plugin-prefixer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Brandeur plugin that adds vendor prefixes",
   "repository": "https://github.com/robinweser/brandeur.git",
   "author": "Robin Weser",

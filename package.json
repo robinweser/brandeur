@@ -4,8 +4,7 @@
   "scripts": {
     "postinstall": "pnpm turbo run setup",
     "build": "pnpm turbo run build",
-    "check": "pnpm format && pnpm test",
-    "format": "prettier --write \"packages/*/src/**/*.js\"",
+    "check": "pnpm test",
     "release": "pnpm prepare-release && lerna publish --force-publish",
     "pre-release": "pnpm prepare-release && lerna publish --force-publish --dist-tag next --preid rc",
     "prepare-release": "git pull --rebase && pnpm run check && pnpm build && cp README.md packages/brandeur/README.md",

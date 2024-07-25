@@ -1,8 +1,8 @@
 import React, { forwardRef } from 'react'
 
-import applyMultiplier from '../../utils/applyMultiplier.js'
+import applyMultiplier from '../utils/applyMultiplier.js'
 
-export default function createBox({ El, baselineGrid = 1 }) {
+export default function createBox({ El }, baselineGrid = 1) {
   return forwardRef(function Box(
     {
       style,

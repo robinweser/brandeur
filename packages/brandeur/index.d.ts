@@ -8,7 +8,7 @@ declare module 'brandeur' {
     ? Arg
     : Style
 
-  type Fallback = {
+  export type Fallback = {
     property: string | Array<string>
     values: Array<string>
     match?: string
@@ -49,20 +49,6 @@ declare module 'brandeur' {
   >(
     config: Config<Hooks, Theme, Plugins>
   ): [string, CSSFunction<Theme, Properties<Hooks, Plugins>>]
-}
-
-declare module 'brandeur-plugin-responsive-valu' {
-  import { Style } from 'brandeur'
-
-  export type Responsive<T> = T | (T | undefined)[]
-
-  export type ResponsiveStyle = {
-    [P in keyof Style]: Responsive<Style[P]>
-  }
-
-  export default function responsiveValue(
-    mediaQueries: Array<`@media ${string}`>
-  ): (style: ResponsiveStyle) => Style
 }
 
 declare module 'fela-plugin-bidi' {

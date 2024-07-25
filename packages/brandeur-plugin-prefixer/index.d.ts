@@ -1,5 +1,7 @@
 declare module 'brandeur-plugin-prefixer' {
-  import { Style } from 'brandeur'
+  import { Style, Fallback } from 'brandeur'
 
   export default function prefixer(): (style: Style) => Style
+
+  export const fallbacks: Array<Fallback>
 }

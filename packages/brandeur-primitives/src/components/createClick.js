@@ -1,5 +1,5 @@
 'use client'
-import React, { forwardRef } from 'react'
+import React, { createElement, forwardRef } from 'react'
 
 const buttonStyle = ({ disabled }) => ({
   backgroundColor: 'unset',
@@ -93,16 +93,16 @@ export default function createClick({ El }, linkComponent = 'a') {
 
     const additionalProps = getProps()
 
-    return (
-      <El
-        ref={ref}
-        onTouchStart={() => {}}
-        {...props}
-        {...additionalProps}
-        as={as}
-      >
-        {children}
-      </El>
+    return createElement(
+      El,
+      {
+        ref,
+        onTouchStart: () => {},
+        ...props,
+        ...additionalProps,
+        as,
+      },
+      children
     )
   })
 }

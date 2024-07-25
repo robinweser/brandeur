@@ -1,12 +1,12 @@
 import React from 'react'
 
-import applyMultiplier from '../../utils/applyMultiplier.js'
+import applyMultiplier from '../utils/applyMultiplier.js'
 
 function getDisplayBySize(size) {
   return size === 0 ? 'none' : 'flex'
 }
 
-export default function createSpacer({ baselineGrid = 1 }) {
+export default function createSpacer({ El }, baselineGrid = 1) {
   return function Spacer({ size = 1 }) {
     const spacing = applyMultiplier(baselineGrid)
     const space = spacing(size)

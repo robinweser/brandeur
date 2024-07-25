@@ -1,7 +1,6 @@
 import { createHooks } from 'brandeur'
 
 import createEl from './components/createEl.js'
-import defaultConfig from './utils/defaultConfig.js'
 
 export default function createSystem({
   hooks,

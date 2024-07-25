@@ -57,8 +57,7 @@ export default function createOverlay({ El }) {
             right,
             inset,
           }),
-        ]}
-      >
+        ]}>
         {children}
       </El>
     )

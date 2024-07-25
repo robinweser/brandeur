@@ -1,6 +1,6 @@
 {
   "name": "brandeur-plugin-debug",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Brandeur plugin to debug layouts",
   "repository": "https://github.com/robinweser/brandeur.git",
   "author": "Robin Weser",

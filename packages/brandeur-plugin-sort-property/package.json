@@ -1,6 +1,6 @@
 {
   "name": "brandeur-plugin-sort-property",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Brandeur plugin that sorts properties according a priority map",
   "repository": "https://github.com/robinweser/brandeur.git",
   "author": "Robin Weser",

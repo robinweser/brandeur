@@ -4,9 +4,6 @@ declare module 'brandeur' {
   import { WithHooks } from '@css-hooks/core'
 
   export type Style = CSSProperties
-  export type PluginProperties<T> = T extends (_: infer Arg) => unknown
-    ? Arg
-    : Style
 
   export type Fallback = {
     property: string | Array<string>
@@ -18,18 +15,17 @@ declare module 'brandeur' {
     typeof createBaseHooks<Hooks>
   >[0]
 
-  export type Config<Hooks extends string, Theme, Plugins> = {
+  type Plugin<T = any> = (style: T) => T
+
+  export type Config<Hooks extends string, Theme> = {
     hooks: HookOptions<Hooks>
     config?: Object
     theme?: Theme
-    plugins?: Plugins
+    plugins?: Array<Plugin>
     fallbacks?: Array<Fallback>
   }
 
-  export type Properties<Hooks, Plugins = []> = WithHooks<
-    Hooks,
-    Style | PluginProperties<Plugins[number]>
-  >
+  export type Properties<Hooks, Style> = WithHooks<Hooks, Style>
 
   export type Rule<Theme, Props> = (theme: Theme) => Props
   export type Rules<Theme, Props> =
@@ -38,14 +34,24 @@ declare module 'brandeur' {
     | Rule<Theme, Props>
     | Array<Rules<Theme, Props>>
 
-  type CSSFunction<Theme, Props> = (
-    properties_0: Rules<Theme, Props>,
-    ...properties_1: (Rules<Theme, Props> | undefined)[]
+  type CSSFunction<Theme, Hooks, Style> = (
+    properties_0: Rules<Theme, Properties<Hooks, Style>>,
+    ...properties_1: (Rules<Theme, Properties<Hooks, Style>> | undefined)[]
   ) => CSSProperties
 
-  export function createHooks<Hooks extends string, Theme = {}, Plugins = []>(
-    config: Config<Hooks, Theme, Plugins>
-  ): [string, CSSFunction<Theme, Properties<Hooks, Plugins>>]
+  export function createHooks<
+    T = Style,
+    Hooks extends Record<string, string>,
+    Theme = {},
+  >(
+    config: Config<keyof Hooks, Theme>
+  ): [string, CSSFunction<Theme, keyof Hooks, T>]
+
+  export function fallbackValue(
+    property: Fallback['property'],
+    value: Fallback['value'],
+    match?: Fallback['match']
+  ): Fallback
 }
 
 declare module 'fela-plugin-bidi' {
@@ -83,12 +89,12 @@ declare module 'fela-plugin-extend' {
     style: ExtendStyle<T, Hooks>
   }
 
-  type ExtendStyle<T, Hooks> = WithHooks<Hooks, T> & {
+  export type ExtendStyle<T, Hooks> = WithHooks<keyof Hooks, T> & {
     extend?: Extension<T, Hooks> | Array<Extension<T, Hooks>>
   }
 
   export default function extend<Hooks, T = Style>(): (
-    style: ExtendStyle<T, keyof Hooks>
+    style: ExtendStyle<T, Hooks>
   ) => Style
 }
 

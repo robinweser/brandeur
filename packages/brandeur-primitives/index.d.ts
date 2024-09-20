@@ -1,10 +1,9 @@
 declare module 'brandeur-primitives' {
-  import { Config, Style, Rules, PluginProperties, Properties } from 'brandeur'
+  import { Style } from 'brandeur'
   import {
     ComponentProps,
-    ComponentPropsWithRef,
-    PropsWithChildren,
     ComponentType,
+    ComponentPropsWithRef,
     ElementType,
     RefAttributes,
     JSX,
@@ -14,16 +13,8 @@ declare module 'brandeur-primitives' {
     ? Omit<T, E>
     : never
 
-  type Options<Hooks extends string, Theme, Plugins> = Config<
-    Hooks,
-    Theme,
-    Plugins
-  > & {
-    baselineGrid?: number
-  }
-
-  type ElProps<E, Hooks, Theme, Plugins = []> = {
-    style?: Rules<Theme, Properties<Hooks, Plugins>>
+  type ElProps<E, Style> = {
+    style?: Style
     as?: E | undefined
   } & DistributiveOmit<
     ComponentPropsWithRef<ElementType extends E ? 'div' : E>,
@@ -31,43 +22,20 @@ declare module 'brandeur-primitives' {
   > &
     RefAttributes<any>
 
-  export function createSystem<Hooks extends string, Theme = {}, Plugins = []>(
-    config: Options<Hooks, Theme, Plugins>
-  ): {
+  type Options<T> = {
+    css: T
+    baselineGrid?: number
+  }
+
+  export function createSystem<T>(config: Options<T>): {
     El: <E extends ElementType>(
-      props: ElProps<E, Hooks, Theme, Plugins>
+      props: ElProps<E, Parameters<T>[0]>
     ) => JSX.Element
     styleSheet: string
-    baselineGrid: number
-    plugins: Plugins
-    theme: Theme
-    hooks: Hooks
+    css: T
   }
 
-  type System<Hooks extends string, Theme, Plugins = []> = ReturnType<
-    typeof createSystem<Hooks, Theme, Plugins>
-  >
-
-  type UnionToIntersection<T> = (
-    T extends any ? (x: T) => any : never
-  ) extends (x: infer R) => any
-    ? R
-    : never
-
-  type MergeProperties<T, U> = {
-    [K in keyof T | keyof U]: K extends keyof T
-      ? K extends keyof U
-        ? T[K] | U[K]
-        : T[K]
-      : K extends keyof U
-        ? U[K]
-        : never
-  }
-
-  type Props<T = []> = MergeProperties<
-    Style,
-    UnionToIntersection<PluginProperties<T[number]>>
-  >
+  type SystemStyle<T> = ComponentProps<T['El']>['style']
 
   type BoxProps<T> = {
     bg?: T['backgroundColor']
@@ -116,11 +84,10 @@ declare module 'brandeur-primitives' {
     marginBottom?: T['marginBottom']
     marginLeft?: T['marginLeft']
   }
-
-  export function createBox<Hooks extends string, Theme = {}, Plugins = []>(
-    system: System<Hooks, Theme, Plugins>
+  export function createBox<S = Style, System>(
+    system: System
   ): <E extends ElementType>(
-    props: ElProps<E, Hooks, Theme, Plugins> & BoxProps<Props<Plugins>>
+    props: ElProps<E, SystemStyle<System>> & BoxProps<S>
   ) => JSX.Element
 
   type GridProps<T> = {
@@ -128,33 +95,26 @@ declare module 'brandeur-primitives' {
     gap?: T['gap']
     areas?: T['gridTemplateAreas']
   }
-  export function createGrid<Hooks extends string, Theme = {}, Plugins = []>(
-    system: System<Hooks, Theme, Plugins>
+  export function createGrid<S = Style, System>(
+    system: System
   ): <E extends ElementType>(
-    props: ElProps<E, Hooks, Theme, Plugins> & GridProps<Props<Plugins>>
+    props: ElProps<E, SystemStyle<System>> & GridProps<S>
   ) => JSX.Element
 
   type ClickButtonProps = {
     disabled?: HTMLButtonElement['disabled']
     type?: HTMLButtonElement['type']
   }
-
   type ClickLinkProps<T extends ElementType> = {
     action: ComponentProps<T>['href']
     target?: HTMLAnchorElement['target']
   }
   type ClickProps<T extends ElementType> = ClickButtonProps | ClickLinkProps<T>
-
-  export function createClick<
-    Hooks extends string,
-    Theme = {},
-    Plugins = [],
-    T extends ElementType = 'a',
-  >(
-    system: System<Hooks, Theme, Plugins>,
-    linkComponent?: T
+  export function createClick<System, L extends ElementType = 'a'>(
+    system: System,
+    linkComponent?: L
   ): <E extends ElementType>(
-    props: ElProps<E, Hooks, Theme, Plugins> & ClickProps<T>
+    props: ElProps<E, SystemStyle<System>> & ClickProps<L>
   ) => JSX.Element
 
   type OverlayProps<T> = {
@@ -166,16 +126,15 @@ declare module 'brandeur-primitives' {
     left?: T['left']
     inset?: T['inset']
   }
-  export function createOverlay<Hooks extends string, Theme = {}, Plugins = []>(
-    system: System<Hooks, Theme, Plugins>
+  export function createOverlay<S = Style, System>(
+    system: System
   ): <E extends ElementType>(
-    props: ElProps<E, Hooks, Theme, Plugins> & OverlayProps<Props<Plugins>>
+    props: ElProps<E, SystemStyle<System>> & OverlayProps<S>
   ) => JSX.Element
 
   type Typography = {
     [variant: string]: Style
   }
-
   type TextProps<T, Typography> = {
     variant?: keyof Typography
     color?: T['color']
@@ -185,30 +144,23 @@ declare module 'brandeur-primitives' {
     size?: T['fontSize']
     height?: T['lineHeight']
   }
-
-  export function createText<
-    Typography,
-    Hooks extends string,
-    Theme = {},
-    Plugins = [],
-  >(
-    system: System<Hooks, Theme, Plugins>,
+  export function createText<S = Style, System, Typography>(
+    system: System,
     typography: Typography
   ): <E extends ElementType>(
-    props: ElProps<E, Hooks, Theme, Plugins> &
-      TextProps<Props<Plugins>, Typography>
+    props: ElProps<E, SystemStyle<System>> & TextProps<S, Typography>
   ) => JSX.Element
 
   type SpacerProps<T> = {
     size: T['width']
   }
-  export function createSpacer<Hooks extends string, Theme = {}, Plugins = []>(
-    system: System<Hooks, Theme, Plugins>
-  ): ComponentType<SpacerProps<Props<Plugins>>>
+  export function createSpacer<S = Style, System>(
+    system: System
+  ): <E extends ElementType>(
+    props: ElProps<E, SystemStyle<System>> & SpacerProps<S>
+  ) => JSX.Element
 
-  export function createVisuallyHidden<
-    Hooks extends string,
-    Theme = {},
-    Plugins = [],
-  >(system: System<Hooks, Theme, Plugins>): ComponentType<PropsWithChildren>
+  export function createVisuallyHidden<System>(
+    system: System
+  ): ComponentType<PropsWithChildren>
 }

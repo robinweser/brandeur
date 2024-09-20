@@ -1,11 +1,11 @@
 declare module 'brandeur-plugin-sort-property' {
   import { Style } from 'brandeur'
 
-  type Config = {
+  type PropertyPriority = {
     [Property in keyof Style]: number
   }
 
   export default function enforceLonghand(
-    config?: Config
+    propertyPriority?: PropertyPriority
   ): (style: Style) => Style
 }

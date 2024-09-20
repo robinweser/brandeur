@@ -1,10 +1,7 @@
 declare module 'brandeur-plugin-enforce-longhand' {
   import { Style } from 'brandeur'
 
-  type Config = {
-    borderMode: 'none' | 'directional' | 'longhand'
-  }
   export default function enforceLonghand(
-    config?: Config
+    borderMode?: 'none' | 'directional' | 'longhand'
   ): (style: Style) => Style
 }

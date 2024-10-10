@@ -109,7 +109,7 @@ function getPropertyPriority({
   )
 }
 
-export default function enforceLonghand(borderMode = 'none') {
+export default function enforceLonghandPlugin(borderMode = 'none') {
   const propertyPriority = getPropertyPriority({
     borderDirectional: borderMode === 'directional' ? 3 : 2,
     borderLonghand: borderMode === 'longhand' ? 3 : 2,

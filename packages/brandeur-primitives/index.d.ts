@@ -4,11 +4,13 @@ declare module 'brandeur-primitives' {
     ComponentProps,
     ComponentType,
     ComponentPropsWithRef,
+    PropsWithChildren,
     ElementType,
     RefAttributes,
     JSX,
   } from 'react'
 
+  type Merge<T, U> = Omit<T, keyof U> & U
   type DistributiveOmit<T, E extends PropertyKey> = T extends any
     ? Omit<T, E>
     : never
@@ -22,17 +24,20 @@ declare module 'brandeur-primitives' {
   > &
     RefAttributes<any>
 
-  type Options<T> = {
-    css: T
+  type Options = {
     baselineGrid?: number
   }
 
-  export function createSystem<T>(config: Options<T>): {
+  export function createSystem<S = Style, T>(
+    css: T,
+    config?: Options
+  ): {
     El: <E extends ElementType>(
       props: ElProps<E, Parameters<T>[0]>
     ) => JSX.Element
     styleSheet: string
     css: T
+    __type: S
   }
 
   type SystemStyle<T> = ComponentProps<T['El']>['style']
@@ -84,10 +89,10 @@ declare module 'brandeur-primitives' {
     marginBottom?: T['marginBottom']
     marginLeft?: T['marginLeft']
   }
-  export function createBox<S = Style, System>(
+  export function createBox<System>(
     system: System
   ): <E extends ElementType>(
-    props: ElProps<E, SystemStyle<System>> & BoxProps<S>
+    props: Merge<ElProps<E, SystemStyle<System>>, BoxProps<System['__type']>>
   ) => JSX.Element
 
   type GridProps<T> = {
@@ -95,26 +100,43 @@ declare module 'brandeur-primitives' {
     gap?: T['gap']
     areas?: T['gridTemplateAreas']
   }
-  export function createGrid<S = Style, System>(
+  export function createGrid<System>(
     system: System
   ): <E extends ElementType>(
-    props: ElProps<E, SystemStyle<System>> & GridProps<S>
+    props: Merge<ElProps<E, SystemStyle<System>>, GridProps<System['__type']>>
   ) => JSX.Element
 
-  type ClickButtonProps = {
-    disabled?: HTMLButtonElement['disabled']
-    type?: HTMLButtonElement['type']
+  type ClickActionButtonProps<A> = {
+    action: A
   }
-  type ClickLinkProps<T extends ElementType> = {
-    action: ComponentProps<T>['href']
-    target?: HTMLAnchorElement['target']
+  type ClickFormButtonProps = {
+    action: null
+    type: 'submit' | 'reset'
   }
-  type ClickProps<T extends ElementType> = ClickButtonProps | ClickLinkProps<T>
+
+  type ClickButtonProps<A> = A extends null
+    ? ClickFormButtonProps
+    : ClickActionButtonProps<A>
+  type ClickLinkProps<A> = {
+    action: A
+  }
+
   export function createClick<System, L extends ElementType = 'a'>(
     system: System,
     linkComponent?: L
-  ): <E extends ElementType>(
-    props: ElProps<E, SystemStyle<System>> & ClickProps<L>
+  ): <A extends ComponentProps<L>['href'] | HTMLButtonElement['onclick']>(
+    props: Merge<
+      Omit<
+        ElProps<
+          A extends ComponentProps<L>['href'] ? L : 'button',
+          SystemStyle<System>
+        >,
+        'as'
+      >,
+      ComponentProps<L>['href'] extends A
+        ? ClickLinkProps<A>
+        : ClickButtonProps<A>
+    >
   ) => JSX.Element
 
   type OverlayProps<T> = {
@@ -126,10 +148,13 @@ declare module 'brandeur-primitives' {
     left?: T['left']
     inset?: T['inset']
   }
-  export function createOverlay<S = Style, System>(
+  export function createOverlay<System>(
     system: System
   ): <E extends ElementType>(
-    props: ElProps<E, SystemStyle<System>> & OverlayProps<S>
+    props: Merge<
+      ElProps<E, SystemStyle<System>>,
+      OverlayProps<System['__type']>
+    >
   ) => JSX.Element
 
   type Typography = {
@@ -144,23 +169,27 @@ declare module 'brandeur-primitives' {
     size?: T['fontSize']
     height?: T['lineHeight']
   }
-  export function createText<S = Style, System, Typography>(
+  export function createText<System, Typography>(
     system: System,
     typography: Typography
   ): <E extends ElementType>(
-    props: ElProps<E, SystemStyle<System>> & TextProps<S, Typography>
+    props: Merge<
+      ElProps<E, SystemStyle<System>>,
+      TextProps<System['__type'], Typography>
+    >
   ) => JSX.Element
 
   type SpacerProps<T> = {
     size: T['width']
   }
-  export function createSpacer<S = Style, System>(
+  export function createSpacer<System>(
     system: System
-  ): <E extends ElementType>(
-    props: ElProps<E, SystemStyle<System>> & SpacerProps<S>
-  ) => JSX.Element
+  ): ComponentType<SpacerProps<System['__type']>>
 
+  type VisuallyHiddenProps = {
+    as?: keyof JSX.IntrinsicElements
+  }
   export function createVisuallyHidden<System>(
     system: System
-  ): ComponentType<PropsWithChildren>
+  ): ComponentType<PropsWithChildren<VisuallyHiddenProps>>
 }

@@ -13,7 +13,11 @@ const style = {
 }
 
 export default function createVisuallyHidden({ El }) {
-  return function VisuallyHidden({ children }) {
-    return <El style={style}>{children}</El>
+  return function VisuallyHidden({ as = 'div', children }) {
+    return (
+      <El as={as} style={style}>
+        {children}
+      </El>
+    )
   }
 }

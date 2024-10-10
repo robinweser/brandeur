@@ -15,7 +15,7 @@ declare module 'brandeur' {
     typeof createBaseHooks<Hooks>
   >[0]
 
-  type Plugin<T = any> = (style: T) => T
+  type Plugin<T = Style> = (style: T) => T
 
   export type Config<Hooks extends string, Theme> = {
     hooks: HookOptions<Hooks>
@@ -49,7 +49,7 @@ declare module 'brandeur' {
 
   export function fallbackValue(
     property: Fallback['property'],
-    value: Fallback['value'],
+    values: Fallback['values'],
     match?: Fallback['match']
   ): Fallback
 }

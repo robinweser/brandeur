@@ -46,6 +46,7 @@
     "@babel/preset-env": "^7.23.8",
     "@babel/preset-react": "^7.0.0",
     "brandeur": "workspace:*",
+    "brandeur-plugin-responsive-value": "workspace:*",
     "cross-env": "^7.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

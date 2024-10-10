@@ -1,6 +1,6 @@
 {
   "name": "brandeur-plugin-responsive-value",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Brandeur plugin to resolve responsive array values",
   "repository": "https://github.com/robinweser/brandeur.git",
   "author": "Robin Weser",

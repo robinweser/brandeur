@@ -1,6 +1,6 @@
 {
   "name": "brandeur-plugin-enforce-longhand",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Brandeur plugin that enforces longhand properties over shorthand properties",
   "repository": "https://github.com/robinweser/brandeur.git",
   "author": "Robin Weser",

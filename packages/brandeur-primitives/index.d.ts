@@ -161,7 +161,7 @@ declare module 'brandeur-primitives' {
     [variant: string]: Style
   }
   type TextProps<T, Typography> = {
-    variant?: keyof Typography
+    variant?: keyof Typography | Array<keyof Typography | undefined>
     color?: T['color']
     weight?: T['fontWeight']
     align?: T['textAlign']

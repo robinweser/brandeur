@@ -8,6 +8,6 @@ declare module 'brandeur-plugin-responsive-value' {
   }
 
   export default function responsiveValue<T = Style>(
-    mediaQueries: Array<`@media ${string}`>
+    mediaQueries: Array<string>
   ): (style: ResponsiveStyle<T>) => Style
 }
